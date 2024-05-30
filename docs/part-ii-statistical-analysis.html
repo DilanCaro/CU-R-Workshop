@@ -83,6 +83,7 @@
 <li><a class="" href="part-i-advanced-data-manipulation-with-dplyr-30-minutes.html">Part I: Advanced Data Manipulation with dplyr (30 minutes)</a></li>
 <li><a class="" href="part-ii-text-data-processing-30-minutes.html">Part II: Text Data Processing (30 minutes)</a></li>
 <li><a class="" href="part-iii-building-predictive-models-30-minutes.html">Part III: Building Predictive Models (30 minutes)</a></li>
+<li><a class="" href="part-4-bookdown-using-r-markdown-to-create-books-1.html">Part 4: Bookdown: Using R Markdown to Create Books</a></li>
 <li><a class="" href="optional-part-v-version-control-and-collaboration-10-minutes.html">(Optional) Part V: Version Control and Collaboration (10 minutes)</a></li>
 <li><a class="" href="references.html">References</a></li>
 </ul>
@@ -109,9 +110,8 @@
 </ol>
 <p>Statistical tests vary based on the type of data and the research question. Common tests include t-tests (for means), chi-squared tests (for categorical data), ANOVA (for comparing means across multiple groups), and regression analysis (for relationships between variables).</p>
 </div>
-<div id="comparing-variances" class="section level2" number="0.2">
-<h2>
-<span class="header-section-number">0.2</span> Comparing Variances<a class="anchor" aria-label="anchor" href="#comparing-variances"><i class="fas fa-link"></i></a>
+<div id="comparing-variances" class="section level2 unnumbered">
+<h2>Comparing Variances<a class="anchor" aria-label="anchor" href="#comparing-variances"><i class="fas fa-link"></i></a>
 </h2>
 <ol style="list-style-type: lower-alpha">
 <li>F test to compare variances (Parametric)</li>
@@ -124,14 +124,14 @@
 <span><span class="co">#&gt;  F test to compare two variances</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; data:  x and y</span></span>
-<span><span class="co">#&gt; F = 5.6473, num df = 49, denom df = 29, p-value =</span></span>
-<span><span class="co">#&gt; 4.154e-06</span></span>
+<span><span class="co">#&gt; F = 3.3438, num df = 49, denom df = 29, p-value =</span></span>
+<span><span class="co">#&gt; 0.0008528</span></span>
 <span><span class="co">#&gt; alternative hypothesis: true ratio of variances is not equal to 1</span></span>
 <span><span class="co">#&gt; 95 percent confidence interval:</span></span>
-<span><span class="co">#&gt;   2.837341 10.624949</span></span>
+<span><span class="co">#&gt;  1.680016 6.291129</span></span>
 <span><span class="co">#&gt; sample estimates:</span></span>
 <span><span class="co">#&gt; ratio of variances </span></span>
-<span><span class="co">#&gt;           5.647314</span></span></code></pre></div>
+<span><span class="co">#&gt;           3.343826</span></span></code></pre></div>
 <ol start="2" style="list-style-type: lower-alpha">
 <li>Barlett test: Testing homogeneity (Parametric)</li>
 </ol>
@@ -199,13 +199,13 @@
 <span><span class="co">#&gt;  Ansari-Bradley test</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; data:  rnorm(100) and rnorm(100, 0, 2)</span></span>
-<span><span class="co">#&gt; AB = 6015, p-value = 2.406e-06</span></span>
+<span><span class="co">#&gt; AB = 5841, p-value = 0.0001108</span></span>
 <span><span class="co">#&gt; alternative hypothesis: true ratio of scales is not equal to 1</span></span>
 <span><span class="co">#&gt; 95 percent confidence interval:</span></span>
-<span><span class="co">#&gt;  0.4163750 0.7035995</span></span>
+<span><span class="co">#&gt;  0.4117439 0.7469819</span></span>
 <span><span class="co">#&gt; sample estimates:</span></span>
 <span><span class="co">#&gt; ratio of scales </span></span>
-<span><span class="co">#&gt;       0.5495689</span></span></code></pre></div>
+<span><span class="co">#&gt;        0.549379</span></span></code></pre></div>
 </div>
 <div id="performing-tests" class="section level2 unnumbered">
 <h2>Performing Tests<a class="anchor" aria-label="anchor" href="#performing-tests"><i class="fas fa-link"></i></a>
@@ -686,9 +686,9 @@
 <div id="exercise-3-2" class="section level2 unnumbered">
 <h2>Exercise 3<a class="anchor" aria-label="anchor" href="#exercise-3-2"><i class="fas fa-link"></i></a>
 </h2>
-<div id="paired-t-test" class="section level3" number="0.2.1">
+<div id="paired-t-test" class="section level3" number="0.0.4">
 <h3>
-<span class="header-section-number">0.2.1</span> Paired t-Test<a class="anchor" aria-label="anchor" href="#paired-t-test"><i class="fas fa-link"></i></a>
+<span class="header-section-number">0.0.4</span> Paired t-Test<a class="anchor" aria-label="anchor" href="#paired-t-test"><i class="fas fa-link"></i></a>
 </h3>
 <p>Use the following data to perform a T-test to check if the score after is greater than before.</p>
 <p>The data is about 20 students testing before and after studying .</p>
@@ -720,17 +720,16 @@
 <p>Load Orthodont dataset from the nlme package and then fit a repeated measures model</p>
 </div>
 </div>
-<div id="tests-for-comparing-medians" class="section level2" number="0.3">
-<h2>
-<span class="header-section-number">0.3</span> Tests for Comparing Medians<a class="anchor" aria-label="anchor" href="#tests-for-comparing-medians"><i class="fas fa-link"></i></a>
+<div id="tests-for-comparing-medians" class="section level2 unnumbered">
+<h2>Tests for Comparing Medians<a class="anchor" aria-label="anchor" href="#tests-for-comparing-medians"><i class="fas fa-link"></i></a>
 </h2>
 </div>
 <div id="exercise-6" class="section level2 unnumbered">
 <h2>Exercise 6<a class="anchor" aria-label="anchor" href="#exercise-6"><i class="fas fa-link"></i></a>
 </h2>
-<div id="mann-whitney-u-test-insectsprays-dataset" class="section level3" number="0.3.1">
+<div id="mann-whitney-u-test-insectsprays-dataset" class="section level3" number="0.0.5">
 <h3>
-<span class="header-section-number">0.3.1</span> Mann-Whitney U Test: InsectSprays Dataset<a class="anchor" aria-label="anchor" href="#mann-whitney-u-test-insectsprays-dataset"><i class="fas fa-link"></i></a>
+<span class="header-section-number">0.0.5</span> Mann-Whitney U Test: InsectSprays Dataset<a class="anchor" aria-label="anchor" href="#mann-whitney-u-test-insectsprays-dataset"><i class="fas fa-link"></i></a>
 </h3>
 <p>Compare the effectiveness of two insect sprays.</p>
 </div>
@@ -750,17 +749,16 @@
 <p>###Kruskal-Wallis Test: ChickWeight Dataset {-}</p>
 <p>Compare the weights across different diets using Kruskal-Wallis test.</p>
 </div>
-<div id="tests-for-proportions" class="section level2" number="0.4">
-<h2>
-<span class="header-section-number">0.4</span> Tests for Proportions<a class="anchor" aria-label="anchor" href="#tests-for-proportions"><i class="fas fa-link"></i></a>
+<div id="tests-for-proportions" class="section level2 unnumbered">
+<h2>Tests for Proportions<a class="anchor" aria-label="anchor" href="#tests-for-proportions"><i class="fas fa-link"></i></a>
 </h2>
 </div>
 <div id="exercise-9" class="section level2 unnumbered">
 <h2>Exercise 9<a class="anchor" aria-label="anchor" href="#exercise-9"><i class="fas fa-link"></i></a>
 </h2>
-<div id="chi-square-test-of-independence-haireyecolor-dataset" class="section level3" number="0.4.1">
+<div id="chi-square-test-of-independence-haireyecolor-dataset" class="section level3" number="0.0.6">
 <h3>
-<span class="header-section-number">0.4.1</span> Chi-Square Test of Independence: HairEyeColor Dataset<a class="anchor" aria-label="anchor" href="#chi-square-test-of-independence-haireyecolor-dataset"><i class="fas fa-link"></i></a>
+<span class="header-section-number">0.0.6</span> Chi-Square Test of Independence: HairEyeColor Dataset<a class="anchor" aria-label="anchor" href="#chi-square-test-of-independence-haireyecolor-dataset"><i class="fas fa-link"></i></a>
 </h3>
 <p>Test if hair color is independent of eye color.</p>
 </div>
@@ -781,9 +779,9 @@
 <div id="exercise-11" class="section level2 unnumbered">
 <h2>Exercise 11<a class="anchor" aria-label="anchor" href="#exercise-11"><i class="fas fa-link"></i></a>
 </h2>
-<div id="pearson-correlation-coefficient-using-usjudgeratings-dataset" class="section level3" number="0.4.2">
+<div id="pearson-correlation-coefficient-using-usjudgeratings-dataset" class="section level3" number="0.0.7">
 <h3>
-<span class="header-section-number">0.4.2</span> Pearson Correlation Coefficient: Using USJudgeRatings Dataset<a class="anchor" aria-label="anchor" href="#pearson-correlation-coefficient-using-usjudgeratings-dataset"><i class="fas fa-link"></i></a>
+<span class="header-section-number">0.0.7</span> Pearson Correlation Coefficient: Using USJudgeRatings Dataset<a class="anchor" aria-label="anchor" href="#pearson-correlation-coefficient-using-usjudgeratings-dataset"><i class="fas fa-link"></i></a>
 </h3>
 <p>Correlation between lawyer Judicial integrity and their judicial Diligence</p>
 </div>
@@ -791,9 +789,9 @@
 <div id="exercise-12" class="section level2 unnumbered">
 <h2>Exercise 12<a class="anchor" aria-label="anchor" href="#exercise-12"><i class="fas fa-link"></i></a>
 </h2>
-<div id="spearmans-rank-correlation-using-usjudgeratings-dataset" class="section level3" number="0.4.3">
+<div id="spearmans-rank-correlation-using-usjudgeratings-dataset" class="section level3" number="0.0.8">
 <h3>
-<span class="header-section-number">0.4.3</span> Spearman’s Rank Correlation: Using USJudgeRatings Dataset<a class="anchor" aria-label="anchor" href="#spearmans-rank-correlation-using-usjudgeratings-dataset"><i class="fas fa-link"></i></a>
+<span class="header-section-number">0.0.8</span> Spearman’s Rank Correlation: Using USJudgeRatings Dataset<a class="anchor" aria-label="anchor" href="#spearmans-rank-correlation-using-usjudgeratings-dataset"><i class="fas fa-link"></i></a>
 </h3>
 <p>Correlation between lawyers’ rating of integrity and their number of contacts with judge</p>
 </div>
@@ -817,7 +815,7 @@
       <ul class="nav navbar-nav">
 <li><a class="nav-link" href="#part-ii-statistical-analysis">Part II: Statistical Analysis</a></li>
 <li><a class="nav-link" href="#introduction-to-hypothesis-testing-and-statistical-tests">Introduction to hypothesis testing and statistical tests</a></li>
-<li><a class="nav-link" href="#comparing-variances"><span class="header-section-number">0.2</span> Comparing Variances</a></li>
+<li><a class="nav-link" href="#comparing-variances">Comparing Variances</a></li>
 <li><a class="nav-link" href="#performing-tests">Performing Tests</a></li>
 <li><a class="nav-link" href="#exercises-hypothesis-testing">Exercises Hypothesis Testing</a></li>
 <li><a class="nav-link" href="#exercise-1-7">Exercise 1</a></li>
@@ -825,7 +823,7 @@
 <a class="nav-link" href="#exercise-2-6">Exercise 2</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#independent-two-sample-t-test-plantgrowth-dataset">Independent Two-Sample t-Test: PlantGrowth Dataset</a></li></ul>
 </li>
 <li>
-<a class="nav-link" href="#exercise-3-2">Exercise 3</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#paired-t-test"><span class="header-section-number">0.2.1</span> Paired t-Test</a></li></ul>
+<a class="nav-link" href="#exercise-3-2">Exercise 3</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#paired-t-test"><span class="header-section-number">0.0.4</span> Paired t-Test</a></li></ul>
 </li>
 <li>
 <a class="nav-link" href="#exercise-4-3">Exercise 4</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#one-way-anova-chickweight-dataset">One-Way ANOVA: ChickWeight Dataset</a></li></ul>
@@ -833,27 +831,27 @@
 <li>
 <a class="nav-link" href="#exercise-5-3">Exercise 5</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#repeated-measures-anova-orthodont-dataset">Repeated Measures ANOVA: Orthodont Dataset</a></li></ul>
 </li>
-<li><a class="nav-link" href="#tests-for-comparing-medians"><span class="header-section-number">0.3</span> Tests for Comparing Medians</a></li>
+<li><a class="nav-link" href="#tests-for-comparing-medians">Tests for Comparing Medians</a></li>
 <li>
-<a class="nav-link" href="#exercise-6">Exercise 6</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#mann-whitney-u-test-insectsprays-dataset"><span class="header-section-number">0.3.1</span> Mann-Whitney U Test: InsectSprays Dataset</a></li></ul>
+<a class="nav-link" href="#exercise-6">Exercise 6</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#mann-whitney-u-test-insectsprays-dataset"><span class="header-section-number">0.0.5</span> Mann-Whitney U Test: InsectSprays Dataset</a></li></ul>
 </li>
 <li>
 <a class="nav-link" href="#exercise-7">Exercise 7</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#wilcoxon-signed-rank-test-airquality-dataset">Wilcoxon Signed-Rank Test: Airquality Dataset</a></li></ul>
 </li>
 <li><a class="nav-link" href="#exercise-8">Exercise 8</a></li>
-<li><a class="nav-link" href="#tests-for-proportions"><span class="header-section-number">0.4</span> Tests for Proportions</a></li>
+<li><a class="nav-link" href="#tests-for-proportions">Tests for Proportions</a></li>
 <li>
-<a class="nav-link" href="#exercise-9">Exercise 9</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#chi-square-test-of-independence-haireyecolor-dataset"><span class="header-section-number">0.4.1</span> Chi-Square Test of Independence: HairEyeColor Dataset</a></li></ul>
+<a class="nav-link" href="#exercise-9">Exercise 9</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#chi-square-test-of-independence-haireyecolor-dataset"><span class="header-section-number">0.0.6</span> Chi-Square Test of Independence: HairEyeColor Dataset</a></li></ul>
 </li>
 <li>
 <a class="nav-link" href="#exercise-10">Exercise 10</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#one-proportion-z-test-using-airquality-dataset">One-Proportion Z-Test: Using Airquality Dataset</a></li></ul>
 </li>
 <li><a class="nav-link" href="#correlation-tests">Correlation Tests</a></li>
 <li>
-<a class="nav-link" href="#exercise-11">Exercise 11</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#pearson-correlation-coefficient-using-usjudgeratings-dataset"><span class="header-section-number">0.4.2</span> Pearson Correlation Coefficient: Using USJudgeRatings Dataset</a></li></ul>
+<a class="nav-link" href="#exercise-11">Exercise 11</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#pearson-correlation-coefficient-using-usjudgeratings-dataset"><span class="header-section-number">0.0.7</span> Pearson Correlation Coefficient: Using USJudgeRatings Dataset</a></li></ul>
 </li>
 <li>
-<a class="nav-link" href="#exercise-12">Exercise 12</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#spearmans-rank-correlation-using-usjudgeratings-dataset"><span class="header-section-number">0.4.3</span> Spearman’s Rank Correlation: Using USJudgeRatings Dataset</a></li></ul>
+<a class="nav-link" href="#exercise-12">Exercise 12</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#spearmans-rank-correlation-using-usjudgeratings-dataset"><span class="header-section-number">0.0.8</span> Spearman’s Rank Correlation: Using USJudgeRatings Dataset</a></li></ul>
 </li>
 <li>
 <a class="nav-link" href="#exercise-13">Exercise 13</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#kendalls-tau-using-usjudgeratings-dataset">Kendall’s Tau: Using USJudgeRatings Dataset</a></li></ul>

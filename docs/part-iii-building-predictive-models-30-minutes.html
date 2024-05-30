@@ -83,6 +83,7 @@
 <li><a class="" href="part-i-advanced-data-manipulation-with-dplyr-30-minutes.html">Part I: Advanced Data Manipulation with dplyr (30 minutes)</a></li>
 <li><a class="" href="part-ii-text-data-processing-30-minutes.html">Part II: Text Data Processing (30 minutes)</a></li>
 <li><a class="active" href="part-iii-building-predictive-models-30-minutes.html">Part III: Building Predictive Models (30 minutes)</a></li>
+<li><a class="" href="part-4-bookdown-using-r-markdown-to-create-books-1.html">Part 4: Bookdown: Using R Markdown to Create Books</a></li>
 <li><a class="" href="optional-part-v-version-control-and-collaboration-10-minutes.html">(Optional) Part V: Version Control and Collaboration (10 minutes)</a></li>
 <li><a class="" href="references.html">References</a></li>
 </ul>
@@ -113,10 +114,13 @@
 <span><span class="va">trainingIndex</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/caret/man/createDataPartition.html">createDataPartition</a></span><span class="op">(</span><span class="va">iris</span><span class="op">$</span><span class="va">Species</span>, p <span class="op">=</span> <span class="fl">0.8</span>, list <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="va">trainingData</span> <span class="op">&lt;-</span> <span class="va">iris</span><span class="op">[</span><span class="va">trainingIndex</span>, <span class="op">]</span></span>
 <span><span class="va">testingData</span> <span class="op">&lt;-</span> <span class="va">iris</span><span class="op">[</span><span class="op">-</span><span class="va">trainingIndex</span>, <span class="op">]</span></span></code></pre></div>
-<p><em>Exercise</em>:</p>
+<div id="exercise" class="section level3 unnumbered">
+<h3>Exercise<a class="anchor" aria-label="anchor" href="#exercise"><i class="fas fa-link"></i></a>
+</h3>
 <ol style="list-style-type: decimal">
 <li>Load a different dataset and partition it into training and testing sets.</li>
 </ol>
+</div>
 </div>
 <div id="creating-predictive-models-with-caret" class="section level2 unnumbered">
 <h2>Creating predictive models with caret<a class="anchor" aria-label="anchor" href="#creating-predictive-models-with-caret"><i class="fas fa-link"></i></a>
@@ -188,113 +192,28 @@
 <span><span class="co">#&gt; Detection Rate                 0.2667</span></span>
 <span><span class="co">#&gt; Detection Prevalence           0.2667</span></span>
 <span><span class="co">#&gt; Balanced Accuracy              0.9000</span></span></code></pre></div>
-<p><em>Exercise</em>:
-2. Build a predictive model for another dataset and evaluate its performance.</p>
-<pre><code>
-
-&lt;!--chapter:end:13-Advanced-R-Part3.Rmd--&gt;
-
-# Part IV: Interactive Dashboards with Shiny (30 minutes) {-}
-## Introduction to Shiny for building web-based data dashboards {-}
-
-Shiny is an R package that makes it easy to build interactive web applications (apps) straight from R. It allows you to turn analyses into interactive web applications without requiring HTML, CSS, or JavaScript knowledge.
-
-
-```r
-# Load the Shiny package
-#install.packages("shiny")
-library(shiny)</code></pre>
-<p>The basic structure of a Shiny app involves two main parts:</p>
-<ol style="list-style-type: decimal">
-<li>A user interface (UI) script, which controls the layout and appearance of the app.</li>
-<li>A server script, which contains the instructions to build and rebuild the app based on user input.</li>
+<div id="exercise-14" class="section level3 unnumbered">
+<h3>Exercise<a class="anchor" aria-label="anchor" href="#exercise-14"><i class="fas fa-link"></i></a>
+</h3>
+<ol start="2" style="list-style-type: decimal">
+<li>Build a predictive model for another dataset and evaluate its performance.</li>
 </ol>
 </div>
-<div id="creating-a-simple-shiny-app" class="section level2 unnumbered">
-<h2>Creating a simple Shiny app<a class="anchor" aria-label="anchor" href="#creating-a-simple-shiny-app"><i class="fas fa-link"></i></a>
-</h2>
-<p><em>UI Component:</em> The UI has a sliderInput for selecting the mpg range and a tableOutput to display the filtered data.</p>
-<p><em>Server Logic:</em> The reactive function creates a reactive subset of mtcars based on the selected mpg range. The renderTable function then renders this filtered data as a table in the main panel.</p>
-<p><em>Running the App:</em> As with any Shiny app, shinyApp(ui = ui, server = server) runs the app.</p>
-<div class="sourceCode" id="cb220"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="co"># Example: A simple Shiny app for displaying a plot</span></span>
-<span></span>
-<span><span class="co"># Define UI</span></span>
-<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu">fluidPage</span><span class="op">(</span></span>
-<span>  <span class="fu">titlePanel</span><span class="op">(</span><span class="st">"Simple Shiny App"</span><span class="op">)</span>,</span>
-<span>  <span class="fu">sidebarLayout</span><span class="op">(</span></span>
-<span>    <span class="fu">sidebarPanel</span><span class="op">(</span></span>
-<span>      <span class="fu">sliderInput</span><span class="op">(</span><span class="st">"num"</span>, <span class="st">"Number of bins:"</span>, </span>
-<span>                  min <span class="op">=</span> <span class="fl">1</span>, max <span class="op">=</span> <span class="fl">50</span>, value <span class="op">=</span> <span class="fl">30</span><span class="op">)</span></span>
-<span>    <span class="op">)</span>,</span>
-<span>    <span class="fu">mainPanel</span><span class="op">(</span></span>
-<span>       <span class="fu">plotOutput</span><span class="op">(</span><span class="st">"distPlot"</span><span class="op">)</span></span>
-<span>    <span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Define server logic</span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">output</span><span class="op">$</span><span class="va">distPlot</span> <span class="op">&lt;-</span> <span class="fu">renderPlot</span><span class="op">(</span><span class="op">{</span></span>
-<span>    <span class="va">x</span> <span class="op">&lt;-</span> <span class="va">faithful</span><span class="op">$</span><span class="va">eruptions</span></span>
-<span>    <span class="va">bins</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>, length.out <span class="op">=</span> <span class="va">input</span><span class="op">$</span><span class="va">num</span> <span class="op">+</span> <span class="fl">1</span><span class="op">)</span></span>
-<span>    <span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="va">x</span>, breaks <span class="op">=</span> <span class="va">bins</span>, col <span class="op">=</span> <span class="st">'darkgray'</span>, border <span class="op">=</span> <span class="st">'white'</span><span class="op">)</span></span>
-<span>  <span class="op">}</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span></span>
-<span><span class="co"># Run the application </span></span>
-<span><span class="fu">shinyApp</span><span class="op">(</span>ui <span class="op">=</span> <span class="va">ui</span>, server <span class="op">=</span> <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<div style="width: 100% ; height: 400px ; text-align: center; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;" class="muted well">Shiny applications not supported in static R Markdown documents</div>
-<div class="sourceCode" id="cb221"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="co"># Define UI</span></span>
-<span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu">fluidPage</span><span class="op">(</span></span>
-<span>  <span class="fu">titlePanel</span><span class="op">(</span><span class="st">"Data Filtering App"</span><span class="op">)</span>,</span>
-<span>  <span class="fu">sidebarLayout</span><span class="op">(</span></span>
-<span>    <span class="fu">sidebarPanel</span><span class="op">(</span></span>
-<span>      <span class="fu">sliderInput</span><span class="op">(</span><span class="st">"mpgRange"</span>, <span class="st">"Miles per Gallon (mpg):"</span>,</span>
-<span>                  min <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">mpg</span><span class="op">)</span>, max <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">mpg</span><span class="op">)</span>,</span>
-<span>                  value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">mpg</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">mpg</span><span class="op">)</span><span class="op">)</span></span>
-<span>      <span class="op">)</span></span>
-<span>    <span class="op">)</span>,</span>
-<span>    <span class="fu">mainPanel</span><span class="op">(</span></span>
-<span>      <span class="fu">tableOutput</span><span class="op">(</span><span class="st">"filteredData"</span><span class="op">)</span></span>
-<span>    <span class="op">)</span></span>
-<span>  <span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Define server logic</span></span>
-<span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">filteredData</span> <span class="op">&lt;-</span> <span class="fu">reactive</span><span class="op">(</span><span class="op">{</span></span>
-<span>    <span class="va">mtcars</span><span class="op">[</span><span class="va">mtcars</span><span class="op">$</span><span class="va">mpg</span> <span class="op">&gt;=</span> <span class="va">input</span><span class="op">$</span><span class="va">mpgRange</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">&amp;</span> <span class="va">mtcars</span><span class="op">$</span><span class="va">mpg</span> <span class="op">&lt;=</span> <span class="va">input</span><span class="op">$</span><span class="va">mpgRange</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, <span class="op">]</span></span>
-<span>  <span class="op">}</span><span class="op">)</span></span>
-<span></span>
-<span>  <span class="va">output</span><span class="op">$</span><span class="va">filteredData</span> <span class="op">&lt;-</span> <span class="fu">renderTable</span><span class="op">(</span><span class="op">{</span></span>
-<span>    <span class="fu">filteredData</span><span class="op">(</span><span class="op">)</span></span>
-<span>  <span class="op">}</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span></span>
-<span><span class="co"># Run the application </span></span>
-<span><span class="fu">shinyApp</span><span class="op">(</span>ui <span class="op">=</span> <span class="va">ui</span>, server <span class="op">=</span> <span class="va">server</span><span class="op">)</span></span></code></pre></div>
-<div style="width: 100% ; height: 400px ; text-align: center; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-box-sizing: border-box;" class="muted well">Shiny applications not supported in static R Markdown documents</div>
-<p><em>Exercise</em>:</p>
-<ol style="list-style-type: decimal">
-<li><p>Modify the example Shiny app to include a dataset of your choice and create a different type of plot.</p></li>
-<li><p>Add additional input options, like checkboxes or dropdown menus, to manipulate the plot.</p></li>
-</ol>
 </div>
 </div>
   <div class="chapter-nav">
 <div class="prev"><a href="part-ii-text-data-processing-30-minutes.html">Part II: Text Data Processing (30 minutes)</a></div>
-<div class="next"><a href="optional-part-v-version-control-and-collaboration-10-minutes.html">(Optional) Part V: Version Control and Collaboration (10 minutes)</a></div>
+<div class="next"><a href="part-4-bookdown-using-r-markdown-to-create-books-1.html">Part 4: Bookdown: Using R Markdown to Create Books</a></div>
 </div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
     <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
       <ul class="nav navbar-nav">
 <li><a class="nav-link" href="#part-iii-building-predictive-models-30-minutes">Part III: Building Predictive Models (30 minutes)</a></li>
-<li><a class="nav-link" href="#introduction-to-machine-learning-in-r">Introduction to machine learning in R</a></li>
-<li><a class="nav-link" href="#creating-predictive-models-with-caret">Creating predictive models with caret</a></li>
-<li><a class="nav-link" href="#creating-a-simple-shiny-app">Creating a simple Shiny app</a></li>
+<li>
+<a class="nav-link" href="#introduction-to-machine-learning-in-r">Introduction to machine learning in R</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#exercise">Exercise</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#creating-predictive-models-with-caret">Creating predictive models with caret</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#exercise-14">Exercise</a></li></ul>
+</li>
 </ul>
 
       <div class="book-extra">

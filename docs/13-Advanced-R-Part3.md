@@ -21,7 +21,7 @@ testingData <- iris[-trainingIndex, ]
 
 ```
 
-*Exercise*:
+### Exercise {-}
 
 1. Load a different dataset and partition it into training and testing sets.
 
@@ -97,9 +97,7 @@ confusionMatrix(predictions, testingData$Species)
 #> Balanced Accuracy              0.9000
 ```
 
-*Exercise*:
+### Exercise {-}
+
 2. Build a predictive model for another dataset and evaluate its performance.
-
-
-```
 

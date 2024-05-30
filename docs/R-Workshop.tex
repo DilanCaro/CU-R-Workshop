@@ -136,7 +136,7 @@
 
 Are you ready to embark on an exciting journey into the world of data analysis and statistical exploration? Imagine having the power to unlock the hidden insights within vast datasets, create stunning visualizations, and make data-driven decisions that can shape the future. Welcome to the world of R programming! R is not just a language; it's your key to uncovering the stories data has to tell. Whether you're a budding data scientist, a curious researcher, or someone who simply loves solving puzzles, R offers you a thrilling adventure where you'll learn to command data with precision and creativity. Get ready to be amazed by the endless possibilities of R and join a global community of data enthusiasts who are reshaping the world, one analysis at a time.
 
-In this website, you will have resources, examples and practice to master R.
+In this website, you will have resources, examples and practice to master R.\footnote{Disclaimer: The logos and names of Columbia University are used with permission for the purpose of this workshop only. The content and opinions expressed in these materials are solely those of the author and do not represent the views or policies of Columbia University. Columbia University is not responsible for any content or representations made within these materials.}
 
 \section*{Objectives}\label{objectives}
 \addcontentsline{toc}{section}{Objectives}
@@ -1390,17 +1390,21 @@ Previously, we exported the data and then imported it . Some of you may think, t
 
 First, we need to obtain the data that we need. For that, please head over to
 
-\url{https://tinyurl.com/JJAY-R-workshop}
+\url{https://tinyurl.com/STAR-DATA}
+
+The download will automatically start.
+
+\includegraphics[width=0.4\linewidth,height=0.2\textheight]{images/STAR-DATA}
 
 alternatively,
 
-\url{https://drive.google.com/drive/folders/18W5f2AvKT7IVKnJ73McCzQOOqMdP0CwM?usp=sharing}
+\url{https://download-directory.github.io/?url=https://github.com/DilanCaro/CU-R-Workshop/tree/b6ccfa1f0775ec6c012898175a9f5454ff1063c5/Data}
 
-\includegraphics[width=0.4\linewidth,height=0.2\textheight]{images/HOLDER}
+and download the zip files. If you are unable to download them all, or unzip, download only the necessary files.
 
-Download the data, for that, click on the arrow of the folder, and choose download. Find where it is located in your computer, obtain the \texttt{Path}
+Or to individually download the data, please visit.
 
-\includegraphics[width=0.4\linewidth,height=0.2\textheight]{images/HOLDER}
+\url{https://github.com/DilanCaro/CU-R-Workshop/tree/b6ccfa1f0775ec6c012898175a9f5454ff1063c5/Data}
 
 Some useful instructions regarding path names: get your working directory
 
@@ -1566,17 +1570,25 @@ It supports:
   Stata: \texttt{read\_dta()} reads .dta files. \texttt{write\_dta()} writes .dta files.
 \end{itemize}
 
-\section{Create and format dates}\label{create-and-format-dates}
+\section*{Create and format dates}\label{create-and-format-dates}
+\addcontentsline{toc}{section}{Create and format dates}
 
 To create a Date object from a simple character string in R, you can use the as.Date() function. The character string has to obey a format that can be defined using a set of symbols (the examples correspond to 13 January, 1982):
 
 \texttt{\%Y}: 4-digit year (1982)
+
 \texttt{\%y}: 2-digit year (82)
+
 \texttt{\%m}: 2-digit month (01)
+
 \texttt{\%d}: 2-digit day of the month (13)
+
 \texttt{\%A}: weekday (Wednesday)
+
 \texttt{\%a}: abbreviated weekday (Wed)
+
 \texttt{\%B}: month (January)
+
 \texttt{\%b}: abbreviated month (Jan)
 
 \subsection*{Exercise 5}\label{exercise-5}
@@ -4588,7 +4600,8 @@ The process involves:
 
 Statistical tests vary based on the type of data and the research question. Common tests include t-tests (for means), chi-squared tests (for categorical data), ANOVA (for comparing means across multiple groups), and regression analysis (for relationships between variables).
 
-\section{Comparing Variances}\label{comparing-variances}
+\section*{Comparing Variances}\label{comparing-variances}
+\addcontentsline{toc}{section}{Comparing Variances}
 
 \begin{enumerate}
 \def\labelenumi{\alph{enumi}.}
@@ -4606,14 +4619,14 @@ Statistical tests vary based on the type of data and the research question. Comm
 \CommentTok{\#\textgreater{}  F test to compare two variances}
 \CommentTok{\#\textgreater{} }
 \CommentTok{\#\textgreater{} data:  x and y}
-\CommentTok{\#\textgreater{} F = 4.2381, num df = 49, denom df = 29, p{-}value =}
-\CommentTok{\#\textgreater{} 8.72e{-}05}
+\CommentTok{\#\textgreater{} F = 3.2581, num df = 49, denom df = 29, p{-}value =}
+\CommentTok{\#\textgreater{} 0.001079}
 \CommentTok{\#\textgreater{} alternative hypothesis: true ratio of variances is not equal to 1}
 \CommentTok{\#\textgreater{} 95 percent confidence interval:}
-\CommentTok{\#\textgreater{}  2.129306 7.973580}
+\CommentTok{\#\textgreater{}  1.636953 6.129872}
 \CommentTok{\#\textgreater{} sample estimates:}
 \CommentTok{\#\textgreater{} ratio of variances }
-\CommentTok{\#\textgreater{}           4.238073}
+\CommentTok{\#\textgreater{}           3.258116}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4728,13 +4741,13 @@ Testing two normal distributions
 \CommentTok{\#\textgreater{}  Ansari{-}Bradley test}
 \CommentTok{\#\textgreater{} }
 \CommentTok{\#\textgreater{} data:  rnorm(100) and rnorm(100, 0, 2)}
-\CommentTok{\#\textgreater{} AB = 5892, p{-}value = 3.875e{-}05}
+\CommentTok{\#\textgreater{} AB = 5941, p{-}value = 1.335e{-}05}
 \CommentTok{\#\textgreater{} alternative hypothesis: true ratio of scales is not equal to 1}
 \CommentTok{\#\textgreater{} 95 percent confidence interval:}
-\CommentTok{\#\textgreater{}  0.4153001 0.7153555}
+\CommentTok{\#\textgreater{}  0.4406711 0.7244022}
 \CommentTok{\#\textgreater{} sample estimates:}
 \CommentTok{\#\textgreater{} ratio of scales }
-\CommentTok{\#\textgreater{}       0.5394925}
+\CommentTok{\#\textgreater{}       0.5752681}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5450,7 +5463,8 @@ Test if there are differences in weight across different feed types.
 
 Load Orthodont dataset from the nlme package and then fit a repeated measures model
 
-\section{Tests for Comparing Medians}\label{tests-for-comparing-medians}
+\section*{Tests for Comparing Medians}\label{tests-for-comparing-medians}
+\addcontentsline{toc}{section}{Tests for Comparing Medians}
 
 \section*{Exercise 6}\label{exercise-6}
 \addcontentsline{toc}{section}{Exercise 6}
@@ -5474,7 +5488,8 @@ Compare Ozone levels from the first half to the second half of the dataset.
 
 Compare the weights across different diets using Kruskal-Wallis test.
 
-\section{Tests for Proportions}\label{tests-for-proportions}
+\section*{Tests for Proportions}\label{tests-for-proportions}
+\addcontentsline{toc}{section}{Tests for Proportions}
 
 \section*{Exercise 9}\label{exercise-9}
 \addcontentsline{toc}{section}{Exercise 9}
@@ -5981,7 +5996,8 @@ Visualize the exposure contribution by start month of the contract in the policy
 \end{Highlighting}
 \end{Shaded}
 
-\emph{Exercise}:
+\subsection*{Exercise}\label{exercise}
+\addcontentsline{toc}{subsection}{Exercise}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -6064,123 +6080,61 @@ Visualize the exposure contribution by start month of the contract in the policy
 \end{Highlighting}
 \end{Shaded}
 
-\emph{Exercise}:
-2. Build a predictive model for another dataset and evaluate its performance.
-
-\begin{verbatim}
-
-
-<!--chapter:end:13-Advanced-R-Part3.Rmd-->
-
-# Part IV: Interactive Dashboards with Shiny (30 minutes) {-}
-## Introduction to Shiny for building web-based data dashboards {-}
-
-Shiny is an R package that makes it easy to build interactive web applications (apps) straight from R. It allows you to turn analyses into interactive web applications without requiring HTML, CSS, or JavaScript knowledge.
-
-
-```r
-# Load the Shiny package
-#install.packages("shiny")
-library(shiny)
-\end{verbatim}
-
-The basic structure of a Shiny app involves two main parts:
+\subsection*{Exercise}\label{exercise-14}
+\addcontentsline{toc}{subsection}{Exercise}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
 \tightlist
 \item
-  A user interface (UI) script, which controls the layout and appearance of the app.
-\item
-  A server script, which contains the instructions to build and rebuild the app based on user input.
+  Build a predictive model for another dataset and evaluate its performance.
 \end{enumerate}
 
-\section*{Creating a simple Shiny app}\label{creating-a-simple-shiny-app}
-\addcontentsline{toc}{section}{Creating a simple Shiny app}
+\chapter*{Part 4: Bookdown: Using R Markdown to Create Books}\label{part-4-bookdown-using-r-markdown-to-create-books-1}
+\addcontentsline{toc}{chapter}{Part 4: Bookdown: Using R Markdown to Create Books}
 
-\emph{UI Component:} The UI has a sliderInput for selecting the mpg range and a tableOutput to display the filtered data.
+\section*{Introduction to Bookdown Package}\label{introduction-to-bookdown-package}
+\addcontentsline{toc}{section}{Introduction to Bookdown Package}
 
-\emph{Server Logic:} The reactive function creates a reactive subset of mtcars based on the selected mpg range. The renderTable function then renders this filtered data as a table in the main panel.
+Bookdown is an R package that facilitates writing books and long-form articles/reports with R Markdown. It supports output formats like HTML, PDF, and EPUB.
 
-\emph{Running the App:} As with any Shiny app, shinyApp(ui = ui, server = server) runs the app.
+\subsection*{Exercise}\label{exercise-15}
+\addcontentsline{toc}{subsection}{Exercise}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-
-\CommentTok{\# Example: A simple Shiny app for displaying a plot}
-
-\CommentTok{\# Define UI}
-\NormalTok{ui }\OtherTok{\textless{}{-}} \FunctionTok{fluidPage}\NormalTok{(}
-  \FunctionTok{titlePanel}\NormalTok{(}\StringTok{"Simple Shiny App"}\NormalTok{),}
-  \FunctionTok{sidebarLayout}\NormalTok{(}
-    \FunctionTok{sidebarPanel}\NormalTok{(}
-      \FunctionTok{sliderInput}\NormalTok{(}\StringTok{"num"}\NormalTok{, }\StringTok{"Number of bins:"}\NormalTok{, }
-                  \AttributeTok{min =} \DecValTok{1}\NormalTok{, }\AttributeTok{max =} \DecValTok{50}\NormalTok{, }\AttributeTok{value =} \DecValTok{30}\NormalTok{)}
-\NormalTok{    ),}
-    \FunctionTok{mainPanel}\NormalTok{(}
-       \FunctionTok{plotOutput}\NormalTok{(}\StringTok{"distPlot"}\NormalTok{)}
-\NormalTok{    )}
-\NormalTok{  )}
-\NormalTok{)}
-
-\CommentTok{\# Define server logic}
-\NormalTok{server }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(input, output) \{}
-\NormalTok{  output}\SpecialCharTok{$}\NormalTok{distPlot }\OtherTok{\textless{}{-}} \FunctionTok{renderPlot}\NormalTok{(\{}
-\NormalTok{    x }\OtherTok{\textless{}{-}}\NormalTok{ faithful}\SpecialCharTok{$}\NormalTok{eruptions}
-\NormalTok{    bins }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\FunctionTok{min}\NormalTok{(x), }\FunctionTok{max}\NormalTok{(x), }\AttributeTok{length.out =}\NormalTok{ input}\SpecialCharTok{$}\NormalTok{num }\SpecialCharTok{+} \DecValTok{1}\NormalTok{)}
-    \FunctionTok{hist}\NormalTok{(x, }\AttributeTok{breaks =}\NormalTok{ bins, }\AttributeTok{col =} \StringTok{\textquotesingle{}darkgray\textquotesingle{}}\NormalTok{, }\AttributeTok{border =} \StringTok{\textquotesingle{}white\textquotesingle{}}\NormalTok{)}
-\NormalTok{  \})}
-\NormalTok{\}}
-
-\CommentTok{\# Run the application }
-\FunctionTok{shinyApp}\NormalTok{(}\AttributeTok{ui =}\NormalTok{ ui, }\AttributeTok{server =}\NormalTok{ server)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-
-\CommentTok{\# Define UI}
-\NormalTok{ui }\OtherTok{\textless{}{-}} \FunctionTok{fluidPage}\NormalTok{(}
-  \FunctionTok{titlePanel}\NormalTok{(}\StringTok{"Data Filtering App"}\NormalTok{),}
-  \FunctionTok{sidebarLayout}\NormalTok{(}
-    \FunctionTok{sidebarPanel}\NormalTok{(}
-      \FunctionTok{sliderInput}\NormalTok{(}\StringTok{"mpgRange"}\NormalTok{, }\StringTok{"Miles per Gallon (mpg):"}\NormalTok{,}
-                  \AttributeTok{min =} \FunctionTok{min}\NormalTok{(mtcars}\SpecialCharTok{$}\NormalTok{mpg), }\AttributeTok{max =} \FunctionTok{max}\NormalTok{(mtcars}\SpecialCharTok{$}\NormalTok{mpg),}
-                  \AttributeTok{value =} \FunctionTok{c}\NormalTok{(}\FunctionTok{min}\NormalTok{(mtcars}\SpecialCharTok{$}\NormalTok{mpg), }\FunctionTok{max}\NormalTok{(mtcars}\SpecialCharTok{$}\NormalTok{mpg))}
-\NormalTok{      )}
-\NormalTok{    ),}
-    \FunctionTok{mainPanel}\NormalTok{(}
-      \FunctionTok{tableOutput}\NormalTok{(}\StringTok{"filteredData"}\NormalTok{)}
-\NormalTok{    )}
-\NormalTok{  )}
-\NormalTok{)}
-
-\CommentTok{\# Define server logic}
-\NormalTok{server }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(input, output) \{}
-\NormalTok{  filteredData }\OtherTok{\textless{}{-}} \FunctionTok{reactive}\NormalTok{(\{}
-\NormalTok{    mtcars[mtcars}\SpecialCharTok{$}\NormalTok{mpg }\SpecialCharTok{\textgreater{}=}\NormalTok{ input}\SpecialCharTok{$}\NormalTok{mpgRange[}\DecValTok{1}\NormalTok{] }\SpecialCharTok{\&}\NormalTok{ mtcars}\SpecialCharTok{$}\NormalTok{mpg }\SpecialCharTok{\textless{}=}\NormalTok{ input}\SpecialCharTok{$}\NormalTok{mpgRange[}\DecValTok{2}\NormalTok{], ]}
-\NormalTok{  \})}
-
-\NormalTok{  output}\SpecialCharTok{$}\NormalTok{filteredData }\OtherTok{\textless{}{-}} \FunctionTok{renderTable}\NormalTok{(\{}
-    \FunctionTok{filteredData}\NormalTok{()}
-\NormalTok{  \})}
-\NormalTok{\}}
-
-\CommentTok{\# Run the application }
-\FunctionTok{shinyApp}\NormalTok{(}\AttributeTok{ui =}\NormalTok{ ui, }\AttributeTok{server =}\NormalTok{ server)}
-\end{Highlighting}
-\end{Shaded}
-
-\emph{Exercise}:
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
+\begin{itemize}
+\tightlist
 \item
-  Modify the example Shiny app to include a dataset of your choice and create a different type of plot.
+  Install the bookdown package using \texttt{install.packages("bookdown")}.
 \item
-  Add additional input options, like checkboxes or dropdown menus, to manipulate the plot.
-\end{enumerate}
+  Explore the documentation of Bookdown by visiting: \href{https://bookdown.org/}{Bookdown Documentation}.
+\item
+  List three features of Bookdown that you find most useful for writing long documents.
+\end{itemize}
+
+\section*{Creating a Simple Bookdown Book}\label{creating-a-simple-bookdown-book}
+\addcontentsline{toc}{section}{Creating a Simple Bookdown Book}
+
+Creating a book with Bookdown involves setting up a directory with specific files and structure. The minimal setup includes an index.Rmd file that serves as the main file and contains the YAML header with the output format set to \texttt{bookdown::gitbook}.
+
+\subsection*{Exercise}\label{exercise-16}
+\addcontentsline{toc}{subsection}{Exercise}
+
+\begin{itemize}
+\tightlist
+\item
+  Create a new RStudio project named ``MyFirstBook''.
+\item
+  Inside the project, create an \texttt{index.Rmd} file. Fill it with a YAML header:
+\end{itemize}
+
+\section{```yaml}\label{yaml}
+
+title: ``My First Book''
+author: ``Your Name''
+site: bookdown::bookdown\_site
+output: bookdown::gitbook
+---
 
 \chapter*{(Optional) Part V: Version Control and Collaboration (10 minutes)}\label{optional-part-v-version-control-and-collaboration-10-minutes}
 \addcontentsline{toc}{chapter}{(Optional) Part V: Version Control and Collaboration (10 minutes)}
@@ -6243,7 +6197,8 @@ git config --global user.email ``\href{mailto:your.email@example.com}{\nolinkurl
   \end{itemize}
 \end{enumerate}
 
-\emph{Exercise}:
+\subsection*{Exercise}\label{exercise-17}
+\addcontentsline{toc}{subsection}{Exercise}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}

@@ -83,6 +83,7 @@
 <li><a class="" href="part-i-advanced-data-manipulation-with-dplyr-30-minutes.html">Part I: Advanced Data Manipulation with dplyr (30 minutes)</a></li>
 <li><a class="" href="part-ii-text-data-processing-30-minutes.html">Part II: Text Data Processing (30 minutes)</a></li>
 <li><a class="" href="part-iii-building-predictive-models-30-minutes.html">Part III: Building Predictive Models (30 minutes)</a></li>
+<li><a class="" href="part-4-bookdown-using-r-markdown-to-create-books-1.html">Part 4: Bookdown: Using R Markdown to Create Books</a></li>
 <li><a class="" href="optional-part-v-version-control-and-collaboration-10-minutes.html">(Optional) Part V: Version Control and Collaboration (10 minutes)</a></li>
 <li><a class="" href="references.html">References</a></li>
 </ul>
@@ -372,16 +373,16 @@ set of artists).</li>
 </ol>
 <p>Previously, we exported the data and then imported it . Some of you may think, then what is the purpose if we already had the dataframe. The prior was just an example, in reality , you would not have the dataframe loaded in R . You would only have a csv or a data file that a coworker has shared with you or the data engineer has procured for you.</p>
 <p>First, we need to obtain the data that we need. For that, please head over to</p>
-<p><a href="https://tinyurl.com/JJAY-R-workshop" class="uri">https://tinyurl.com/JJAY-R-workshop</a></p>
+<p><a href="https://tinyurl.com/STAR-DATA" class="uri">https://tinyurl.com/STAR-DATA</a></p>
+<p>The download will automatically start.</p>
+<center>
+<img src="images/STAR-DATA.png" width="40%" height="20%">
+</center>
 <p>alternatively,</p>
-<p><a href="https://drive.google.com/drive/folders/18W5f2AvKT7IVKnJ73McCzQOOqMdP0CwM?usp=sharing" class="uri">https://drive.google.com/drive/folders/18W5f2AvKT7IVKnJ73McCzQOOqMdP0CwM?usp=sharing</a></p>
-<center>
-<img src="images/HOLDER.png" width="40%" height="20%">
-</center>
-<p>Download the data, for that, click on the arrow of the folder, and choose download. Find where it is located in your computer, obtain the <code>Path</code></p>
-<center>
-<img src="images/HOLDER.png" width="40%" height="20%">
-</center>
+<p><a href="https://download-directory.github.io/?url=https://github.com/DilanCaro/CU-R-Workshop/tree/b6ccfa1f0775ec6c012898175a9f5454ff1063c5/Data" class="uri">https://download-directory.github.io/?url=https://github.com/DilanCaro/CU-R-Workshop/tree/b6ccfa1f0775ec6c012898175a9f5454ff1063c5/Data</a></p>
+<p>and download the zip files. If you are unable to download them all, or unzip, download only the necessary files.</p>
+<p>Or to individually download the data, please visit.</p>
+<p><a href="https://github.com/DilanCaro/CU-R-Workshop/tree/b6ccfa1f0775ec6c012898175a9f5454ff1063c5/Data" class="uri">https://github.com/DilanCaro/CU-R-Workshop/tree/b6ccfa1f0775ec6c012898175a9f5454ff1063c5/Data</a></p>
 <p>Some useful instructions regarding path names: get your working directory</p>
 <ul>
 <li>Get working directory</li>
@@ -487,19 +488,18 @@ set of artists).</li>
 <li>Stata: <code>read_dta()</code> reads .dta files. <code>write_dta()</code> writes .dta files.</li>
 </ul>
 </div>
-<div id="create-and-format-dates" class="section level2" number="0.1">
-<h2>
-<span class="header-section-number">0.1</span> Create and format dates<a class="anchor" aria-label="anchor" href="#create-and-format-dates"><i class="fas fa-link"></i></a>
+<div id="create-and-format-dates" class="section level2 unnumbered">
+<h2>Create and format dates<a class="anchor" aria-label="anchor" href="#create-and-format-dates"><i class="fas fa-link"></i></a>
 </h2>
 <p>To create a Date object from a simple character string in R, you can use the as.Date() function. The character string has to obey a format that can be defined using a set of symbols (the examples correspond to 13 January, 1982):</p>
-<p><code>%Y</code>: 4-digit year (1982)
-<code>%y</code>: 2-digit year (82)
-<code>%m</code>: 2-digit month (01)
-<code>%d</code>: 2-digit day of the month (13)
-<code>%A</code>: weekday (Wednesday)
-<code>%a</code>: abbreviated weekday (Wed)
-<code>%B</code>: month (January)
-<code>%b</code>: abbreviated month (Jan)</p>
+<p><code>%Y</code>: 4-digit year (1982)</p>
+<p><code>%y</code>: 2-digit year (82)</p>
+<p><code>%m</code>: 2-digit month (01)</p>
+<p><code>%d</code>: 2-digit day of the month (13)</p>
+<p><code>%A</code>: weekday (Wednesday)</p>
+<p><code>%a</code>: abbreviated weekday (Wed)</p>
+<p><code>%B</code>: month (January)</p>
+<p><code>%b</code>: abbreviated month (Jan)</p>
 <div id="exercise-5" class="section level3 unnumbered">
 <h3>Exercise 5<a class="anchor" aria-label="anchor" href="#exercise-5"><i class="fas fa-link"></i></a>
 </h3>
@@ -546,7 +546,7 @@ set of artists).</li>
 <li><a class="nav-link" href="#import-.xlsx-file">Import .xlsx file</a></li>
 <li><a class="nav-link" href="#import-other-data-formats">Import other data formats</a></li>
 <li>
-<a class="nav-link" href="#create-and-format-dates"><span class="header-section-number">0.1</span> Create and format dates</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#exercise-5">Exercise 5</a></li></ul>
+<a class="nav-link" href="#create-and-format-dates">Create and format dates</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#exercise-5">Exercise 5</a></li></ul>
 </li>
 </ul>
 

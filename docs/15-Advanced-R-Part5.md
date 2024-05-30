@@ -27,7 +27,7 @@ Integrating Git with R:
     - Use pull requests for code reviews.
     - Merge changes to the main branch.
 
-*Exercise*:
+### Exercise {-}
 
  1. Create a new R project with a Git repository.
  2. Make changes in your project, commit them, and push them to a GitHub repository.

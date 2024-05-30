@@ -321,21 +321,26 @@ Previously, we exported the data and then imported it . Some of you may think, t
 
 First, we need to obtain the data that we need. For that, please head over to 
 
-https://tinyurl.com/JJAY-R-workshop
+
+https://tinyurl.com/STAR-DATA
+
+The download will automatically start. 
+
+
+<center>
+<img src="images/STAR-DATA.png" width="40%" height="20%" />
+</center>
 
 alternatively,
 
-https://drive.google.com/drive/folders/18W5f2AvKT7IVKnJ73McCzQOOqMdP0CwM?usp=sharing
+https://download-directory.github.io/?url=https://github.com/DilanCaro/CU-R-Workshop/tree/b6ccfa1f0775ec6c012898175a9f5454ff1063c5/Data
 
-<center>
-<img src="images/HOLDER.png" width="40%" height="20%" />
-</center>
+and download the zip files. If you are unable to download them all, or unzip, download only the necessary files.
 
-Download the data, for that, click on the arrow of the folder, and choose download. Find where it is located in your computer, obtain the `Path`
+Or to individually download the data, please visit. 
 
-<center>
-<img src="images/HOLDER.png" width="40%" height="20%" />
-</center>
+https://github.com/DilanCaro/CU-R-Workshop/tree/b6ccfa1f0775ec6c012898175a9f5454ff1063c5/Data
+
 
 Some useful instructions regarding path names: get your working directory
 
@@ -470,17 +475,24 @@ It supports:
 - SPSS: `read_sav()` reads .sav files and `read_por()` reads the older .por files. write_sav() writes .sav files.
 - Stata: `read_dta()` reads .dta files. `write_dta()` writes .dta files.
 
-## Create and format dates
+## Create and format dates {-}
 
 To create a Date object from a simple character string in R, you can use the as.Date() function. The character string has to obey a format that can be defined using a set of symbols (the examples correspond to 13 January, 1982):
 
 `%Y`: 4-digit year (1982)
+
 `%y`: 2-digit year (82)
+
 `%m`: 2-digit month (01)
+
 `%d`: 2-digit day of the month (13)
+
 `%A`: weekday (Wednesday)
+
 `%a`: abbreviated weekday (Wed)
+
 `%B`: month (January)
+
 `%b`: abbreviated month (Jan)
 
 

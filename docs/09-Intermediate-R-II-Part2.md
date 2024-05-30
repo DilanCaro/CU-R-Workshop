@@ -22,7 +22,7 @@ Statistical tests vary based on the type of data and the research question. Comm
 
 
 
-## Comparing Variances
+## Comparing Variances {-}
 
 a. F test to compare variances (Parametric)
 
@@ -35,14 +35,14 @@ var.test(x, y)
 #> 	F test to compare two variances
 #> 
 #> data:  x and y
-#> F = 3.2441, num df = 49, denom df = 29, p-value =
-#> 0.001122
+#> F = 5.2858, num df = 49, denom df = 29, p-value =
+#> 8.586e-06
 #> alternative hypothesis: true ratio of variances is not equal to 1
 #> 95 percent confidence interval:
-#>  1.629899 6.103461
+#>  2.655704 9.944777
 #> sample estimates:
 #> ratio of variances 
-#>           3.244077
+#>           5.285792
 ```
 
 b. Barlett test: Testing homogeneity  (Parametric)
@@ -125,16 +125,16 @@ ansari.test(rnorm(100), rnorm(100, 0, 2), conf.int = TRUE)
 #> 	Ansari-Bradley test
 #> 
 #> data:  rnorm(100) and rnorm(100, 0, 2)
-#> AB = 6275, p-value = 2.144e-09
+#> AB = 6226, p-value = 9.081e-09
 #> alternative hypothesis: true ratio of scales is not equal to 1
 #> 95 percent confidence interval:
-#>  0.3370860 0.5583282
+#>  0.3408292 0.5780717
 #> sample estimates:
 #> ratio of scales 
-#>       0.4375378
+#>       0.4504704
 ```
 
-## Performing Tests{-}
+## Performing Tests {-}
 
 
 1.  Tests for Comparing Means
@@ -706,7 +706,7 @@ Test if there are differences in weight across different feed types.
 Load Orthodont dataset from the nlme package and then fit a repeated measures model
 
 
-## Tests for Comparing Medians
+## Tests for Comparing Medians {-}
 
 ## Exercise 6 {-}
 
@@ -726,7 +726,7 @@ Compare Ozone levels from the first half to the second half of the dataset.
 Compare the weights across different diets using Kruskal-Wallis test.
 
 
-## Tests for Proportions
+## Tests for Proportions {-}
 
 
 ## Exercise 9 {-}
