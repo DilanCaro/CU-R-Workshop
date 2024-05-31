@@ -5,8 +5,8 @@ date: "2024-05-30"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib, packages.bib]
-# url: your book url like https://bookdown.org/yihui/bookdown
-# cover-image: path to the social sharing image like images/cover.jpg
+url: https://github.com/DilanCaro/CU-R-Workshop/
+cover-image: images/CU_logo.png
 description: |
   This is an R workshop for 2024 STAR cohort members.
 #link-citations: yes

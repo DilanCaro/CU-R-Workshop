@@ -155,7 +155,7 @@ Run the following code, then use typeof(), class() functions to find out the dat
 
 ```r
 my_numeric <- 42.5
-John_jay <- "university"
+Columbia_University <- "university"
 my_logical <- TRUE
 my_date <- as.Date("05/29/2018", "%m/%d/%Y")
 ```

@@ -35,14 +35,14 @@ var.test(x, y)
 #> 	F test to compare two variances
 #> 
 #> data:  x and y
-#> F = 5.2858, num df = 49, denom df = 29, p-value =
-#> 8.586e-06
+#> F = 4.8253, num df = 49, denom df = 29, p-value =
+#> 2.281e-05
 #> alternative hypothesis: true ratio of variances is not equal to 1
 #> 95 percent confidence interval:
-#>  2.655704 9.944777
+#>  2.424366 9.078490
 #> sample estimates:
 #> ratio of variances 
-#>           5.285792
+#>           4.825348
 ```
 
 b. Barlett test: Testing homogeneity  (Parametric)
@@ -125,13 +125,13 @@ ansari.test(rnorm(100), rnorm(100, 0, 2), conf.int = TRUE)
 #> 	Ansari-Bradley test
 #> 
 #> data:  rnorm(100) and rnorm(100, 0, 2)
-#> AB = 6226, p-value = 9.081e-09
+#> AB = 6070, p-value = 6.206e-07
 #> alternative hypothesis: true ratio of scales is not equal to 1
 #> 95 percent confidence interval:
-#>  0.3408292 0.5780717
+#>  0.3566561 0.6298398
 #> sample estimates:
 #> ratio of scales 
-#>       0.4504704
+#>       0.4757969
 ```
 
 ## Performing Tests {-}
