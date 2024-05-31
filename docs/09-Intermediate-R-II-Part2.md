@@ -1,5 +1,5 @@
 
-# Part II: Statistical Analysis {-}
+# Part IV: Statistical Analysis {-}
 
 
 ## Introduction to hypothesis testing and statistical tests {-}
@@ -35,14 +35,14 @@ var.test(x, y)
 #> 	F test to compare two variances
 #> 
 #> data:  x and y
-#> F = 4.8253, num df = 49, denom df = 29, p-value =
-#> 2.281e-05
+#> F = 4.8339, num df = 49, denom df = 29, p-value =
+#> 2.238e-05
 #> alternative hypothesis: true ratio of variances is not equal to 1
 #> 95 percent confidence interval:
-#>  2.424366 9.078490
+#>  2.428686 9.094664
 #> sample estimates:
 #> ratio of variances 
-#>           4.825348
+#>           4.833945
 ```
 
 b. Barlett test: Testing homogeneity  (Parametric)
@@ -125,13 +125,13 @@ ansari.test(rnorm(100), rnorm(100, 0, 2), conf.int = TRUE)
 #> 	Ansari-Bradley test
 #> 
 #> data:  rnorm(100) and rnorm(100, 0, 2)
-#> AB = 6070, p-value = 6.206e-07
+#> AB = 6227, p-value = 8.822e-09
 #> alternative hypothesis: true ratio of scales is not equal to 1
 #> 95 percent confidence interval:
-#>  0.3566561 0.6298398
+#>  0.3146965 0.5388316
 #> sample estimates:
 #> ratio of scales 
-#>       0.4757969
+#>       0.4119443
 ```
 
 ## Performing Tests {-}

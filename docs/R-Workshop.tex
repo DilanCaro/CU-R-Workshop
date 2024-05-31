@@ -4243,15 +4243,12 @@ rows of this completed dataset.
 \emph{Hint:} Subset mtcars first, then modify to add NAs. Use mice() for
 imputation and complete() to extract the desired imputed dataset.
 
-\chapter*{Intermediate R II}\label{intermediate-r-ii}
-\addcontentsline{toc}{chapter}{Intermediate R II}
-
 In this session , we will do some more advanced data visualization ,and statistical analysis.
 
 If time permits, we will cover Dates and Times
 
-\chapter*{Part I: Advanced Data Visualization}\label{part-i-advanced-data-visualization}
-\addcontentsline{toc}{chapter}{Part I: Advanced Data Visualization}
+\chapter*{Part III: Advanced Data Visualization}\label{part-iii-advanced-data-visualization}
+\addcontentsline{toc}{chapter}{Part III: Advanced Data Visualization}
 
 The aim of the \texttt{ggplot2} package is to create elegant data visualizations using the grammar of graphics.
 
@@ -4574,8 +4571,8 @@ Use the Danish fire insurance losses. Plot the arrival of losses over time.
 
 \includegraphics{08-Intermediate-R-II-Part1_files/figure-latex/unnamed-chunk-17-1.pdf}
 
-\chapter*{Part II: Statistical Analysis}\label{part-ii-statistical-analysis}
-\addcontentsline{toc}{chapter}{Part II: Statistical Analysis}
+\chapter*{Part IV: Statistical Analysis}\label{part-iv-statistical-analysis}
+\addcontentsline{toc}{chapter}{Part IV: Statistical Analysis}
 
 \section*{Introduction to hypothesis testing and statistical tests}\label{introduction-to-hypothesis-testing-and-statistical-tests}
 \addcontentsline{toc}{section}{Introduction to hypothesis testing and statistical tests}
@@ -4619,14 +4616,14 @@ Statistical tests vary based on the type of data and the research question. Comm
 \CommentTok{\#\textgreater{}  F test to compare two variances}
 \CommentTok{\#\textgreater{} }
 \CommentTok{\#\textgreater{} data:  x and y}
-\CommentTok{\#\textgreater{} F = 3.0315, num df = 49, denom df = 29, p{-}value =}
-\CommentTok{\#\textgreater{} 0.002041}
+\CommentTok{\#\textgreater{} F = 3.7893, num df = 49, denom df = 29, p{-}value =}
+\CommentTok{\#\textgreater{} 0.0002635}
 \CommentTok{\#\textgreater{} alternative hypothesis: true ratio of variances is not equal to 1}
 \CommentTok{\#\textgreater{} 95 percent confidence interval:}
-\CommentTok{\#\textgreater{}  1.523107 5.703555}
+\CommentTok{\#\textgreater{}  1.903814 7.129185}
 \CommentTok{\#\textgreater{} sample estimates:}
 \CommentTok{\#\textgreater{} ratio of variances }
-\CommentTok{\#\textgreater{}           3.031522}
+\CommentTok{\#\textgreater{}           3.789265}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4741,13 +4738,13 @@ Testing two normal distributions
 \CommentTok{\#\textgreater{}  Ansari{-}Bradley test}
 \CommentTok{\#\textgreater{} }
 \CommentTok{\#\textgreater{} data:  rnorm(100) and rnorm(100, 0, 2)}
-\CommentTok{\#\textgreater{} AB = 6086, p{-}value = 4.129e{-}07}
+\CommentTok{\#\textgreater{} AB = 6476, p{-}value = 3.196e{-}12}
 \CommentTok{\#\textgreater{} alternative hypothesis: true ratio of scales is not equal to 1}
 \CommentTok{\#\textgreater{} 95 percent confidence interval:}
-\CommentTok{\#\textgreater{}  0.4149736 0.6633286}
+\CommentTok{\#\textgreater{}  0.3068226 0.4968765}
 \CommentTok{\#\textgreater{} sample estimates:}
 \CommentTok{\#\textgreater{} ratio of scales }
-\CommentTok{\#\textgreater{}       0.5238355}
+\CommentTok{\#\textgreater{}       0.3864499}
 \end{Highlighting}
 \end{Shaded}
 
@@ -5813,6 +5810,9 @@ Visualize the exposure contribution by start month of the contract in the policy
 1. Add a covariate start\_month to the data set. 2. Group the data by start\_month.
 3. Calculate the exposure within each group.
 4. Plot the data.
+
+\chapter*{Advanced R}\label{advanced-r}
+\addcontentsline{toc}{chapter}{Advanced R}
 
 \chapter*{Part I: Advanced Data Manipulation with dplyr (30 minutes)}\label{part-i-advanced-data-manipulation-with-dplyr-30-minutes}
 \addcontentsline{toc}{chapter}{Part I: Advanced Data Manipulation with dplyr (30 minutes)}

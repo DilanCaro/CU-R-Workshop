@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Part IV: Statistical Analysis | R Workshop</title>
+<meta name="author" content="Dilan Caro">
+<meta name="description" content="Introduction to hypothesis testing and statistical tests Hypothesis testing is a statistical method used to make inferences or draw conclusions about a population based on sample data. It starts...">
+<meta name="generator" content="bookdown 0.37 with bs4_book()">
+<meta property="og:title" content="Part IV: Statistical Analysis | R Workshop">
+<meta property="og:type" content="book">
+<meta property="og:url" content="https://github.com/DilanCaro/CU-R-Workshop/part-iv-statistical-analysis.html">
+<meta property="og:image" content="https://github.com/DilanCaro/CU-R-Workshop/images/CU_logo.png">
+<meta property="og:description" content="Introduction to hypothesis testing and statistical tests Hypothesis testing is a statistical method used to make inferences or draw conclusions about a population based on sample data. It starts...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Part IV: Statistical Analysis | R Workshop">
+<meta name="twitter:description" content="Introduction to hypothesis testing and statistical tests Hypothesis testing is a statistical method used to make inferences or draw conclusions about a population based on sample data. It starts...">
+<meta name="twitter:image" content="https://github.com/DilanCaro/CU-R-Workshop/images/CU_logo.png">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.6.0/transition.js"></script><script src="libs/bs3compat-0.6.0/tabs.js"></script><script src="libs/bs3compat-0.6.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<style type="text/css">
+    /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+          margin-bottom: 0em;
+        }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
+  </style>
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">R Workshop</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html">Welcome</a></li>
+<li><a class="" href="r-basics.html">R Basics</a></li>
+<li><a class="" href="part-i-introduction-to-r.html">Part I: Introduction to R</a></li>
+<li><a class="" href="part-ii-r-fundamentals.html">Part II: R Fundamentals</a></li>
+<li><a class="" href="part-iii-data-structures.html">Part III: Data Structures</a></li>
+<li><a class="" href="part-iv-data-manipulation.html">Part IV: Data Manipulation</a></li>
+<li><a class="" href="part-v-basic-data-visualization.html">Part V: Basic Data Visualization</a></li>
+<li><a class="" href="intermediate-r.html">Intermediate R</a></li>
+<li><a class="" href="part-i-functions-and-control-structures.html">Part I: Functions and Control Structures</a></li>
+<li><a class="" href="part-ii-data-wrangling.html">Part II: Data Wrangling</a></li>
+<li><a class="" href="part-iii-advanced-data-visualization.html">Part III: Advanced Data Visualization</a></li>
+<li><a class="active" href="part-iv-statistical-analysis.html">Part IV: Statistical Analysis</a></li>
+<li><a class="" href="optional-part-v-working-with-dates-and-times-20-minutes.html">(Optional) Part V: Working with Dates and Times (20 minutes)</a></li>
+<li><a class="" href="advanced-r.html">Advanced R</a></li>
+<li><a class="" href="part-i-advanced-data-manipulation-with-dplyr-30-minutes.html">Part I: Advanced Data Manipulation with dplyr (30 minutes)</a></li>
+<li><a class="" href="part-ii-text-data-processing-30-minutes.html">Part II: Text Data Processing (30 minutes)</a></li>
+<li><a class="" href="part-iii-building-predictive-models-30-minutes.html">Part III: Building Predictive Models (30 minutes)</a></li>
+<li><a class="" href="part-4-bookdown-using-r-markdown-to-create-books-1.html">Part 4: Bookdown: Using R Markdown to Create Books</a></li>
+<li><a class="" href="optional-part-v-version-control-and-collaboration-10-minutes.html">(Optional) Part V: Version Control and Collaboration (10 minutes)</a></li>
+<li><a class="" href="references.html">References</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="part-iv-statistical-analysis" class="section level1 unnumbered">
+<h1>Part IV: Statistical Analysis<a class="anchor" aria-label="anchor" href="#part-iv-statistical-analysis"><i class="fas fa-link"></i></a>
+</h1>
+<div id="introduction-to-hypothesis-testing-and-statistical-tests" class="section level2 unnumbered">
+<h2>Introduction to hypothesis testing and statistical tests<a class="anchor" aria-label="anchor" href="#introduction-to-hypothesis-testing-and-statistical-tests"><i class="fas fa-link"></i></a>
+</h2>
+<p>Hypothesis testing is a statistical method used to make inferences or draw conclusions about a population based on sample data. It starts with a null hypothesis (H0) that assumes no effect or no difference, and an alternative hypothesis (H1) that contradicts the null hypothesis.</p>
+<p>The process involves:
+1. Defining the null and alternative hypotheses.</p>
+<ol start="2" style="list-style-type: decimal">
+<li><p>Selecting a significance level (alpha, typically 0.05).</p></li>
+<li><p>Calculating a test statistic based on the sample data.</p></li>
+<li><p>Determining the p-value, which is the probability of observing the test statistic or something more extreme under the null hypothesis.</p></li>
+<li><p>Comparing the p-value with the significance level to decide whether to reject the null hypothesis.</p></li>
+</ol>
+<p>Statistical tests vary based on the type of data and the research question. Common tests include t-tests (for means), chi-squared tests (for categorical data), ANOVA (for comparing means across multiple groups), and regression analysis (for relationships between variables).</p>
+</div>
+<div id="comparing-variances" class="section level2 unnumbered">
+<h2>Comparing Variances<a class="anchor" aria-label="anchor" href="#comparing-variances"><i class="fas fa-link"></i></a>
+</h2>
+<ol style="list-style-type: lower-alpha">
+<li>F test to compare variances (Parametric)</li>
+</ol>
+<div class="sourceCode" id="cb170"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">50</span>, mean <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">30</span>, mean <span class="op">=</span> <span class="fl">1</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/var.test.html">var.test</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  F test to compare two variances</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; data:  x and y</span></span>
+<span><span class="co">#&gt; F = 4.8574, num df = 49, denom df = 29, p-value =</span></span>
+<span><span class="co">#&gt; 2.126e-05</span></span>
+<span><span class="co">#&gt; alternative hypothesis: true ratio of variances is not equal to 1</span></span>
+<span><span class="co">#&gt; 95 percent confidence interval:</span></span>
+<span><span class="co">#&gt;  2.440472 9.138801</span></span>
+<span><span class="co">#&gt; sample estimates:</span></span>
+<span><span class="co">#&gt; ratio of variances </span></span>
+<span><span class="co">#&gt;           4.857405</span></span></code></pre></div>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>Barlett test: Testing homogeneity (Parametric)</li>
+</ol>
+<p>Performs Bartlett’s test of the null that the variances in each of the groups (samples) are the same.</p>
+<div class="sourceCode" id="cb171"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span><span class="op">(</span><span class="va">graphics</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">count</span> <span class="op">~</span> <span class="va">spray</span>, data <span class="op">=</span> <span class="va">InsectSprays</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="09-Intermediate-R-II-Part2_files/figure-html/unnamed-chunk-2-1.png" width="672"></div>
+<div class="sourceCode" id="cb172"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/bartlett.test.html">bartlett.test</a></span><span class="op">(</span><span class="va">InsectSprays</span><span class="op">$</span><span class="va">count</span>, <span class="va">InsectSprays</span><span class="op">$</span><span class="va">spray</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  Bartlett test of homogeneity of variances</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; data:  InsectSprays$count and InsectSprays$spray</span></span>
+<span><span class="co">#&gt; Bartlett's K-squared = 25.96, df = 5, p-value =</span></span>
+<span><span class="co">#&gt; 9.085e-05</span></span></code></pre></div>
+<ol start="3" style="list-style-type: lower-alpha">
+<li>Fligner-Killeen Test of Homogeneity of Variances (Non-parametric)</li>
+</ol>
+<div class="sourceCode" id="cb173"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/fligner.test.html">fligner.test</a></span><span class="op">(</span><span class="va">InsectSprays</span><span class="op">$</span><span class="va">count</span>, <span class="va">InsectSprays</span><span class="op">$</span><span class="va">spray</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  Fligner-Killeen test of homogeneity of variances</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; data:  InsectSprays$count and InsectSprays$spray</span></span>
+<span><span class="co">#&gt; Fligner-Killeen:med chi-squared = 14.483, df = 5,</span></span>
+<span><span class="co">#&gt; p-value = 0.01282</span></span></code></pre></div>
+<ol start="4" style="list-style-type: lower-alpha">
+<li>Mood Two-Sample Test of Scale (Non-Parametric)</li>
+</ol>
+<div class="sourceCode" id="cb174"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ramsay</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">111</span>, <span class="fl">107</span>, <span class="fl">100</span>, <span class="fl">99</span>, <span class="fl">102</span>, <span class="fl">106</span>, <span class="fl">109</span>, <span class="fl">108</span>, <span class="fl">104</span>, <span class="fl">99</span>,</span>
+<span>            <span class="fl">101</span>, <span class="fl">96</span>, <span class="fl">97</span>, <span class="fl">102</span>, <span class="fl">107</span>, <span class="fl">113</span>, <span class="fl">116</span>, <span class="fl">113</span>, <span class="fl">110</span>, <span class="fl">98</span><span class="op">)</span></span>
+<span><span class="va">jung.parekh</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">107</span>, <span class="fl">108</span>, <span class="fl">106</span>, <span class="fl">98</span>, <span class="fl">105</span>, <span class="fl">103</span>, <span class="fl">110</span>, <span class="fl">105</span>, <span class="fl">104</span>,</span>
+<span>            <span class="fl">100</span>, <span class="fl">96</span>, <span class="fl">108</span>, <span class="fl">103</span>, <span class="fl">104</span>, <span class="fl">114</span>, <span class="fl">114</span>, <span class="fl">113</span>, <span class="fl">108</span>, <span class="fl">106</span>, <span class="fl">99</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/mood.test.html">mood.test</a></span><span class="op">(</span><span class="va">ramsay</span>, <span class="va">jung.parekh</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  Mood two-sample test of scale</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; data:  ramsay and jung.parekh</span></span>
+<span><span class="co">#&gt; Z = 1.0371, p-value = 0.2997</span></span>
+<span><span class="co">#&gt; alternative hypothesis: two.sided</span></span></code></pre></div>
+<ol start="5" style="list-style-type: lower-alpha">
+<li>Ansari-Bradley Test (Non-parametric)</li>
+</ol>
+<div class="sourceCode" id="cb175"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ramsay</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">111</span>, <span class="fl">107</span>, <span class="fl">100</span>, <span class="fl">99</span>, <span class="fl">102</span>, <span class="fl">106</span>, <span class="fl">109</span>, <span class="fl">108</span>, <span class="fl">104</span>, <span class="fl">99</span>,</span>
+<span>            <span class="fl">101</span>, <span class="fl">96</span>, <span class="fl">97</span>, <span class="fl">102</span>, <span class="fl">107</span>, <span class="fl">113</span>, <span class="fl">116</span>, <span class="fl">113</span>, <span class="fl">110</span>, <span class="fl">98</span><span class="op">)</span></span>
+<span><span class="va">jung.parekh</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">107</span>, <span class="fl">108</span>, <span class="fl">106</span>, <span class="fl">98</span>, <span class="fl">105</span>, <span class="fl">103</span>, <span class="fl">110</span>, <span class="fl">105</span>, <span class="fl">104</span>,</span>
+<span>            <span class="fl">100</span>, <span class="fl">96</span>, <span class="fl">108</span>, <span class="fl">103</span>, <span class="fl">104</span>, <span class="fl">114</span>, <span class="fl">114</span>, <span class="fl">113</span>, <span class="fl">108</span>, <span class="fl">106</span>, <span class="fl">99</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/ansari.test.html">ansari.test</a></span><span class="op">(</span><span class="va">ramsay</span>, <span class="va">jung.parekh</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in ansari.test.default(ramsay, jung.parekh): cannot</span></span>
+<span><span class="co">#&gt; compute exact p-value with ties</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  Ansari-Bradley test</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; data:  ramsay and jung.parekh</span></span>
+<span><span class="co">#&gt; AB = 185.5, p-value = 0.1815</span></span>
+<span><span class="co">#&gt; alternative hypothesis: true ratio of scales is not equal to 1</span></span></code></pre></div>
+<p>Testing two normal distributions</p>
+<div class="sourceCode" id="cb176"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/ansari.test.html">ansari.test</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">100</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">0</span>, <span class="fl">2</span><span class="op">)</span>, conf.int <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  Ansari-Bradley test</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; data:  rnorm(100) and rnorm(100, 0, 2)</span></span>
+<span><span class="co">#&gt; AB = 6382, p-value = 7.544e-11</span></span>
+<span><span class="co">#&gt; alternative hypothesis: true ratio of scales is not equal to 1</span></span>
+<span><span class="co">#&gt; 95 percent confidence interval:</span></span>
+<span><span class="co">#&gt;  0.3556221 0.5553647</span></span>
+<span><span class="co">#&gt; sample estimates:</span></span>
+<span><span class="co">#&gt; ratio of scales </span></span>
+<span><span class="co">#&gt;       0.4456171</span></span></code></pre></div>
+</div>
+<div id="performing-tests" class="section level2 unnumbered">
+<h2>Performing Tests<a class="anchor" aria-label="anchor" href="#performing-tests"><i class="fas fa-link"></i></a>
+</h2>
+<ol style="list-style-type: decimal">
+<li>Tests for Comparing Means</li>
+</ol>
+<ol style="list-style-type: lower-alpha">
+<li>One-Sample t-Test</li>
+</ol>
+<p>We’ll test if the average miles per gallon (mpg) in the mtcars dataset is significantly different from 20 mpg.</p>
+<div class="sourceCode" id="cb177"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">mpg</span>, mu <span class="op">=</span> <span class="fl">20</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  One Sample t-test</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; data:  mtcars$mpg</span></span>
+<span><span class="co">#&gt; t = 0.08506, df = 31, p-value = 0.9328</span></span>
+<span><span class="co">#&gt; alternative hypothesis: true mean is not equal to 20</span></span>
+<span><span class="co">#&gt; 95 percent confidence interval:</span></span>
+<span><span class="co">#&gt;  17.91768 22.26357</span></span>
+<span><span class="co">#&gt; sample estimates:</span></span>
+<span><span class="co">#&gt; mean of x </span></span>
+<span><span class="co">#&gt;  20.09062</span></span></code></pre></div>
+<p>The results of this one-sample t-test suggest that the average mpg for the cars in the <code>mtcars</code> dataset is not significantly different from 20 mpg, as the p-value is far above the typical alpha level of 0.05 used to determine statistical significance. The data supports the null hypothesis that the true mean is 20 mpg, within the confidence interval provided.</p>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>Independent Two-Sample t-Test</li>
+</ol>
+<p>We’ll compare the means of mpg between cars with automatic (am = 0) and manual (am = 1) transmissions.</p>
+<div class="sourceCode" id="cb178"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">auto_mpg</span> <span class="op">&lt;-</span> <span class="va">mtcars</span><span class="op">$</span><span class="va">mpg</span><span class="op">[</span><span class="va">mtcars</span><span class="op">$</span><span class="va">am</span> <span class="op">==</span> <span class="fl">0</span><span class="op">]</span></span>
+<span><span class="va">manual_mpg</span> <span class="op">&lt;-</span> <span class="va">mtcars</span><span class="op">$</span><span class="va">mpg</span><span class="op">[</span><span class="va">mtcars</span><span class="op">$</span><span class="va">am</span> <span class="op">==</span> <span class="fl">1</span><span class="op">]</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">auto_mpg</span>, <span class="va">manual_mpg</span>, var.equal <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  Two Sample t-test</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; data:  auto_mpg and manual_mpg</span></span>
+<span><span class="co">#&gt; t = -4.1061, df = 30, p-value = 0.000285</span></span>
+<span><span class="co">#&gt; alternative hypothesis: true difference in means is not equal to 0</span></span>
+<span><span class="co">#&gt; 95 percent confidence interval:</span></span>
+<span><span class="co">#&gt;  -10.84837  -3.64151</span></span>
+<span><span class="co">#&gt; sample estimates:</span></span>
+<span><span class="co">#&gt; mean of x mean of y </span></span>
+<span><span class="co">#&gt;  17.14737  24.39231</span></span></code></pre></div>
+<p>The results of this two-sample t-test indicate that the average mpg for cars with automatic transmissions significantly differs from those with manual transmissions, as the p-value (0.000285) is well below the alpha level of 0.05 typically used for determining statistical significance. The data strongly support the alternative hypothesis that there is a true difference in means, with manual transmission cars averaging higher mpg (24.39 mpg) compared to automatics (17.15 mpg), as reflected within the confidence interval provided.</p>
+<ol start="3" style="list-style-type: lower-alpha">
+<li>Paired t-Test</li>
+</ol>
+<p>Let’s use sleep data</p>
+<div class="sourceCode" id="cb179"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Load the dataset</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">sleep</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Perform the paired t-test comparing the effects of two drugs</span></span>
+<span><span class="va">t_test_result</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">extra</span> <span class="op">~</span> <span class="va">group</span>, data <span class="op">=</span> <span class="va">sleep</span>, paired <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Print the results</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">t_test_result</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  Paired t-test</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; data:  extra by group</span></span>
+<span><span class="co">#&gt; t = -4.0621, df = 9, p-value = 0.002833</span></span>
+<span><span class="co">#&gt; alternative hypothesis: true mean difference is not equal to 0</span></span>
+<span><span class="co">#&gt; 95 percent confidence interval:</span></span>
+<span><span class="co">#&gt;  -2.4598858 -0.7001142</span></span>
+<span><span class="co">#&gt; sample estimates:</span></span>
+<span><span class="co">#&gt; mean difference </span></span>
+<span><span class="co">#&gt;           -1.58</span></span></code></pre></div>
+<p>The results of this paired t-test suggest that there is a statistically significant difference in the <code>extra</code> sleep effects between the two treatment groups, as the p-value (0.002833) is well below the typical alpha level of 0.05 used for determining statistical significance. The data strongly support the alternative hypothesis that the true mean difference in sleep effects is not equal to zero, with an average mean difference of -1.58 hours. This difference indicates that one treatment group experienced a greater increase in sleep duration compared to the other, as confirmed by the confidence interval ranging from -2.46 to -0.70 hours.</p>
+<ol start="4" style="list-style-type: lower-alpha">
+<li>One-Way ANOVA</li>
+</ol>
+<p>Test if there are differences in mpg across different levels of the number of cylinders (cyl).</p>
+<div class="sourceCode" id="cb180"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">anova_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/aov.html">aov</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">anova_model</span><span class="op">)</span></span>
+<span><span class="co">#&gt;             Df Sum Sq Mean Sq F value   Pr(&gt;F)    </span></span>
+<span><span class="co">#&gt; factor(cyl)  2  824.8   412.4    39.7 4.98e-09 ***</span></span>
+<span><span class="co">#&gt; Residuals   29  301.3    10.4                     </span></span>
+<span><span class="co">#&gt; ---</span></span>
+<span><span class="co">#&gt; Signif. codes:  </span></span>
+<span><span class="co">#&gt; 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span></code></pre></div>
+<p>The ANOVA analysis clearly shows that the number of cylinders in a vehicle significantly affects its fuel efficiency, with different cylinder groups exhibiting notably different mpg. This finding is robust, with very strong statistical significance, suggesting that engine size, as indicated by the number of cylinders, is a key factor influencing a car’s fuel consumption. This information can be vital for both consumers seeking fuel-efficient vehicles and manufacturers aiming to improve vehicle designs.</p>
+<ol start="5" style="list-style-type: lower-alpha">
+<li>Repeated Measures ANOVA</li>
+</ol>
+<div class="sourceCode" id="cb181"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Load the CO2 dataset from the datasets package</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html">data</a></span><span class="op">(</span><span class="va">CO2</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Check the structure of the data</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">CO2</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Classes 'nfnGroupedData', 'nfGroupedData', 'groupedData' and 'data.frame':   84 obs. of  5 variables:</span></span>
+<span><span class="co">#&gt;  $ Plant    : Ord.factor w/ 12 levels "Qn1"&lt;"Qn2"&lt;"Qn3"&lt;..: 1 1 1 1 1 1 1 2 2 2 ...</span></span>
+<span><span class="co">#&gt;  $ Type     : Factor w/ 2 levels "Quebec","Mississippi": 1 1 1 1 1 1 1 1 1 1 ...</span></span>
+<span><span class="co">#&gt;  $ Treatment: Factor w/ 2 levels "nonchilled","chilled": 1 1 1 1 1 1 1 1 1 1 ...</span></span>
+<span><span class="co">#&gt;  $ conc     : num  95 175 250 350 500 675 1000 95 175 250 ...</span></span>
+<span><span class="co">#&gt;  $ uptake   : num  16 30.4 34.8 37.2 35.3 39.2 39.7 13.6 27.3 37.1 ...</span></span>
+<span><span class="co">#&gt;  - attr(*, "formula")=Class 'formula'  language uptake ~ conc | Plant</span></span>
+<span><span class="co">#&gt;   .. ..- attr(*, ".Environment")=&lt;environment: R_EmptyEnv&gt; </span></span>
+<span><span class="co">#&gt;  - attr(*, "outer")=Class 'formula'  language ~Treatment * Type</span></span>
+<span><span class="co">#&gt;   .. ..- attr(*, ".Environment")=&lt;environment: R_EmptyEnv&gt; </span></span>
+<span><span class="co">#&gt;  - attr(*, "labels")=List of 2</span></span>
+<span><span class="co">#&gt;   ..$ x: chr "Ambient carbon dioxide concentration"</span></span>
+<span><span class="co">#&gt;   ..$ y: chr "CO2 uptake rate"</span></span>
+<span><span class="co">#&gt;  - attr(*, "units")=List of 2</span></span>
+<span><span class="co">#&gt;   ..$ x: chr "(uL/L)"</span></span>
+<span><span class="co">#&gt;   ..$ y: chr "(umol/m^2 s)"</span></span>
+<span></span>
+<span><span class="co"># Load necessary package for analysis</span></span>
+<span><span class="co">#install.packages("nlme") </span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://svn.r-project.org/R-packages/trunk/nlme/">nlme</a></span><span class="op">)</span>  <span class="co"># for linear mixed-effects models</span></span>
+<span></span>
+<span><span class="co"># Fit a repeated measures model</span></span>
+<span><span class="co"># Treat 'Plant' as a random effect to account for measurements from the same plant</span></span>
+<span><span class="va">model</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/nlme/man/lme.html">lme</a></span><span class="op">(</span><span class="va">uptake</span> <span class="op">~</span> <span class="va">Type</span> <span class="op">*</span> <span class="va">Treatment</span>, random <span class="op">=</span> <span class="op">~</span> <span class="fl">1</span> <span class="op">|</span> <span class="va">Plant</span>, data <span class="op">=</span> <span class="va">CO2</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Summary of the model</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Linear mixed-effects model fit by REML</span></span>
+<span><span class="co">#&gt;   Data: CO2 </span></span>
+<span><span class="co">#&gt;        AIC      BIC    logLik</span></span>
+<span><span class="co">#&gt;   584.0375 598.3297 -286.0188</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Random effects:</span></span>
+<span><span class="co">#&gt;  Formula: ~1 | Plant</span></span>
+<span><span class="co">#&gt;          (Intercept) Residual</span></span>
+<span><span class="co">#&gt; StdDev: 0.0004510923 8.005933</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Fixed effects:  uptake ~ Type * Treatment </span></span>
+<span><span class="co">#&gt;                                     Value Std.Error DF</span></span>
+<span><span class="co">#&gt; (Intercept)                      35.33333  1.747038 72</span></span>
+<span><span class="co">#&gt; TypeMississippi                  -9.38095  2.470685  8</span></span>
+<span><span class="co">#&gt; Treatmentchilled                 -3.58095  2.470685  8</span></span>
+<span><span class="co">#&gt; TypeMississippi:Treatmentchilled -6.55714  3.494076  8</span></span>
+<span><span class="co">#&gt;                                    t-value p-value</span></span>
+<span><span class="co">#&gt; (Intercept)                      20.224710  0.0000</span></span>
+<span><span class="co">#&gt; TypeMississippi                  -3.796904  0.0053</span></span>
+<span><span class="co">#&gt; Treatmentchilled                 -1.449377  0.1853</span></span>
+<span><span class="co">#&gt; TypeMississippi:Treatmentchilled -1.876646  0.0974</span></span>
+<span><span class="co">#&gt;  Correlation: </span></span>
+<span><span class="co">#&gt;                                  (Intr) TypMss Trtmnt</span></span>
+<span><span class="co">#&gt; TypeMississippi                  -0.707              </span></span>
+<span><span class="co">#&gt; Treatmentchilled                 -0.707  0.500       </span></span>
+<span><span class="co">#&gt; TypeMississippi:Treatmentchilled  0.500 -0.707 -0.707</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Standardized Within-Group Residuals:</span></span>
+<span><span class="co">#&gt;        Min         Q1        Med         Q3        Max </span></span>
+<span><span class="co">#&gt; -2.8044677 -0.4526405  0.2706326  0.7210426  1.3299660 </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Number of Observations: 84</span></span>
+<span><span class="co">#&gt; Number of Groups: 12</span></span>
+<span></span>
+<span><span class="co"># Anova table for the model</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="va">model</span><span class="op">)</span></span>
+<span><span class="co">#&gt;                numDF denDF  F-value p-value</span></span>
+<span><span class="co">#&gt; (Intercept)        1    72 970.5351  &lt;.0001</span></span>
+<span><span class="co">#&gt; Type               1     8  52.5086  0.0001</span></span>
+<span><span class="co">#&gt; Treatment          1     8  15.4164  0.0044</span></span>
+<span><span class="co">#&gt; Type:Treatment     1     8   3.5218  0.0974</span></span></code></pre></div>
+<p>The model provides strong evidence that both the type of plant and whether it is chilled significantly affect CO2 uptake, independently. The lack of a significant interaction suggests that the effect of chilling does not differ between types in the way that might have been expected.</p>
+<ol start="2" style="list-style-type: decimal">
+<li>Tests for Comparing Medians</li>
+</ol>
+<ol style="list-style-type: lower-alpha">
+<li>Mann-Whitney U Test</li>
+</ol>
+<p>Comparing mpg between cars with 4 and 6 cylinders.</p>
+<div class="sourceCode" id="cb182"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">mpg_4</span> <span class="op">&lt;-</span> <span class="va">mtcars</span><span class="op">$</span><span class="va">mpg</span><span class="op">[</span><span class="va">mtcars</span><span class="op">$</span><span class="va">cyl</span> <span class="op">==</span> <span class="fl">4</span><span class="op">]</span></span>
+<span><span class="va">mpg_6</span> <span class="op">&lt;-</span> <span class="va">mtcars</span><span class="op">$</span><span class="va">mpg</span><span class="op">[</span><span class="va">mtcars</span><span class="op">$</span><span class="va">cyl</span> <span class="op">==</span> <span class="fl">6</span><span class="op">]</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/wilcox.test.html">wilcox.test</a></span><span class="op">(</span><span class="va">mpg_4</span>, <span class="va">mpg_6</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in wilcox.test.default(mpg_4, mpg_6): cannot</span></span>
+<span><span class="co">#&gt; compute exact p-value with ties</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  Wilcoxon rank sum test with continuity correction</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; data:  mpg_4 and mpg_6</span></span>
+<span><span class="co">#&gt; W = 76.5, p-value = 0.0006658</span></span>
+<span><span class="co">#&gt; alternative hypothesis: true location shift is not equal to 0</span></span></code></pre></div>
+<p>The result of the Wilcoxon rank sum test strongly suggests that the median mpg values for cars with 4 cylinders differ significantly from those with 6 cylinders in the mtcars dataset. Given the very low p-value, it is likely that 4-cylinder cars either achieve higher or lower mpg compared to 6-cylinder cars, depending on the direction of the rank sums (not specified here but typically inferred from the data setup). This finding is crucial for automotive studies focusing on fuel efficiency based on engine size, providing evidence that engine size (as represented by cylinder count) may impact fuel economy.</p>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>Wilcoxon Signed-Rank Test</li>
+</ol>
+<p>Again, a hypothetical example for paired data.</p>
+<div class="sourceCode" id="cb183"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># Extracting the groups</span></span>
+<span></span>
+<span><span class="va">group1</span> <span class="op">&lt;-</span> <span class="va">sleep</span><span class="op">$</span><span class="va">extra</span><span class="op">[</span><span class="va">sleep</span><span class="op">$</span><span class="va">group</span> <span class="op">==</span> <span class="fl">1</span><span class="op">]</span></span>
+<span><span class="va">group2</span> <span class="op">&lt;-</span> <span class="va">sleep</span><span class="op">$</span><span class="va">extra</span><span class="op">[</span><span class="va">sleep</span><span class="op">$</span><span class="va">group</span> <span class="op">==</span> <span class="fl">2</span><span class="op">]</span></span>
+<span></span>
+<span><span class="co"># Wilcoxon Signed-Rank Test</span></span>
+<span><span class="va">wilcox_test_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/wilcox.test.html">wilcox.test</a></span><span class="op">(</span><span class="va">group1</span>, <span class="va">group2</span>, paired <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in wilcox.test.default(group1, group2, paired =</span></span>
+<span><span class="co">#&gt; TRUE): cannot compute exact p-value with ties</span></span>
+<span><span class="co">#&gt; Warning in wilcox.test.default(group1, group2, paired =</span></span>
+<span><span class="co">#&gt; TRUE): cannot compute exact p-value with zeroes</span></span>
+<span></span>
+<span><span class="co"># Print the results</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">wilcox_test_results</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  Wilcoxon signed rank test with continuity correction</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; data:  group1 and group2</span></span>
+<span><span class="co">#&gt; V = 0, p-value = 0.009091</span></span>
+<span><span class="co">#&gt; alternative hypothesis: true location shift is not equal to 0</span></span></code></pre></div>
+<p>The results of the Wilcoxon signed-rank test suggest a statistically significant difference between the two groups tested, with a p-value indicating strong evidence against the null hypothesis of no difference. This significant finding implies that the treatment or condition represented by these two groups had a different impact on the variable measured (extra sleep hours), with the direction of effect (which group had more sleep) needing further description from the data setup. This analysis is particularly useful in clinical or psychological studies where the normality assumption may not hold, and robust, non-parametric methods are required.</p>
+<div class="sourceCode" id="cb184"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1.83</span>,  <span class="fl">0.50</span>,  <span class="fl">1.62</span>,  <span class="fl">2.48</span>, <span class="fl">1.68</span>, <span class="fl">1.88</span>, <span class="fl">1.55</span>, <span class="fl">3.06</span>, <span class="fl">1.30</span><span class="op">)</span></span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.878</span>, <span class="fl">0.647</span>, <span class="fl">0.598</span>, <span class="fl">2.05</span>, <span class="fl">1.06</span>, <span class="fl">1.29</span>, <span class="fl">1.06</span>, <span class="fl">3.14</span>, <span class="fl">1.29</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/wilcox.test.html">wilcox.test</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, paired <span class="op">=</span> <span class="cn">TRUE</span>, alternative <span class="op">=</span> <span class="st">"greater"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  Wilcoxon signed rank exact test</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; data:  x and y</span></span>
+<span><span class="co">#&gt; V = 40, p-value = 0.01953</span></span>
+<span><span class="co">#&gt; alternative hypothesis: true location shift is greater than 0</span></span></code></pre></div>
+<ol start="3" style="list-style-type: lower-alpha">
+<li>Kruskal-Wallis Test</li>
+</ol>
+<p>Comparing mpg across different cylinder groups.</p>
+<div class="sourceCode" id="cb185"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/kruskal.test.html">kruskal.test</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">cyl</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">mtcars</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  Kruskal-Wallis rank sum test</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; data:  mpg by factor(cyl)</span></span>
+<span><span class="co">#&gt; Kruskal-Wallis chi-squared = 25.746, df = 2, p-value</span></span>
+<span><span class="co">#&gt; = 2.566e-06</span></span></code></pre></div>
+<p>The Kruskal-Wallis test conclusively shows that the number of cylinders is a significant factor in determining a car’s miles per gallon, with the differences in mpg across groups being statistically significant. This insight can inform decisions related to car manufacturing and consumer choice, particularly in contexts where fuel efficiency is a critical concern.</p>
+<ol start="4" style="list-style-type: lower-alpha">
+<li>Friedman Test</li>
+</ol>
+<div class="sourceCode" id="cb186"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">RoundingTimes</span> <span class="op">&lt;-</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">5.40</span>, <span class="fl">5.50</span>, <span class="fl">5.55</span>,</span>
+<span>         <span class="fl">5.85</span>, <span class="fl">5.70</span>, <span class="fl">5.75</span>,</span>
+<span>         <span class="fl">5.20</span>, <span class="fl">5.60</span>, <span class="fl">5.50</span>,</span>
+<span>         <span class="fl">5.55</span>, <span class="fl">5.50</span>, <span class="fl">5.40</span>,</span>
+<span>         <span class="fl">5.90</span>, <span class="fl">5.85</span>, <span class="fl">5.70</span>,</span>
+<span>         <span class="fl">5.45</span>, <span class="fl">5.55</span>, <span class="fl">5.60</span>,</span>
+<span>         <span class="fl">5.40</span>, <span class="fl">5.40</span>, <span class="fl">5.35</span>,</span>
+<span>         <span class="fl">5.45</span>, <span class="fl">5.50</span>, <span class="fl">5.35</span>,</span>
+<span>         <span class="fl">5.25</span>, <span class="fl">5.15</span>, <span class="fl">5.00</span>,</span>
+<span>         <span class="fl">5.85</span>, <span class="fl">5.80</span>, <span class="fl">5.70</span>,</span>
+<span>         <span class="fl">5.25</span>, <span class="fl">5.20</span>, <span class="fl">5.10</span>,</span>
+<span>         <span class="fl">5.65</span>, <span class="fl">5.55</span>, <span class="fl">5.45</span>,</span>
+<span>         <span class="fl">5.60</span>, <span class="fl">5.35</span>, <span class="fl">5.45</span>,</span>
+<span>         <span class="fl">5.05</span>, <span class="fl">5.00</span>, <span class="fl">4.95</span>,</span>
+<span>         <span class="fl">5.50</span>, <span class="fl">5.50</span>, <span class="fl">5.40</span>,</span>
+<span>         <span class="fl">5.45</span>, <span class="fl">5.55</span>, <span class="fl">5.50</span>,</span>
+<span>         <span class="fl">5.55</span>, <span class="fl">5.55</span>, <span class="fl">5.35</span>,</span>
+<span>         <span class="fl">5.45</span>, <span class="fl">5.50</span>, <span class="fl">5.55</span>,</span>
+<span>         <span class="fl">5.50</span>, <span class="fl">5.45</span>, <span class="fl">5.25</span>,</span>
+<span>         <span class="fl">5.65</span>, <span class="fl">5.60</span>, <span class="fl">5.40</span>,</span>
+<span>         <span class="fl">5.70</span>, <span class="fl">5.65</span>, <span class="fl">5.55</span>,</span>
+<span>         <span class="fl">6.30</span>, <span class="fl">6.30</span>, <span class="fl">6.25</span><span class="op">)</span>,</span>
+<span>       nrow <span class="op">=</span> <span class="fl">22</span>,</span>
+<span>       byrow <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>       dimnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">:</span> <span class="fl">22</span>,</span>
+<span>                       <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Round Out"</span>, <span class="st">"Narrow Angle"</span>, <span class="st">"Wide Angle"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">RoundingTimes</span></span>
+<span><span class="co">#&gt;    Round Out Narrow Angle Wide Angle</span></span>
+<span><span class="co">#&gt; 1       5.40         5.50       5.55</span></span>
+<span><span class="co">#&gt; 2       5.85         5.70       5.75</span></span>
+<span><span class="co">#&gt; 3       5.20         5.60       5.50</span></span>
+<span><span class="co">#&gt; 4       5.55         5.50       5.40</span></span>
+<span><span class="co">#&gt; 5       5.90         5.85       5.70</span></span>
+<span><span class="co">#&gt; 6       5.45         5.55       5.60</span></span>
+<span><span class="co">#&gt; 7       5.40         5.40       5.35</span></span>
+<span><span class="co">#&gt; 8       5.45         5.50       5.35</span></span>
+<span><span class="co">#&gt; 9       5.25         5.15       5.00</span></span>
+<span><span class="co">#&gt; 10      5.85         5.80       5.70</span></span>
+<span><span class="co">#&gt; 11      5.25         5.20       5.10</span></span>
+<span><span class="co">#&gt; 12      5.65         5.55       5.45</span></span>
+<span><span class="co">#&gt; 13      5.60         5.35       5.45</span></span>
+<span><span class="co">#&gt; 14      5.05         5.00       4.95</span></span>
+<span><span class="co">#&gt; 15      5.50         5.50       5.40</span></span>
+<span><span class="co">#&gt; 16      5.45         5.55       5.50</span></span>
+<span><span class="co">#&gt; 17      5.55         5.55       5.35</span></span>
+<span><span class="co">#&gt; 18      5.45         5.50       5.55</span></span>
+<span><span class="co">#&gt; 19      5.50         5.45       5.25</span></span>
+<span><span class="co">#&gt; 20      5.65         5.60       5.40</span></span>
+<span><span class="co">#&gt; 21      5.70         5.65       5.55</span></span>
+<span><span class="co">#&gt; 22      6.30         6.30       6.25</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/friedman.test.html">friedman.test</a></span><span class="op">(</span><span class="va">RoundingTimes</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  Friedman rank sum test</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; data:  RoundingTimes</span></span>
+<span><span class="co">#&gt; Friedman chi-squared = 11.143, df = 2, p-value =</span></span>
+<span><span class="co">#&gt; 0.003805</span></span></code></pre></div>
+<p>The significant Friedman test result suggests that the conditions or treatments applied in the RoundingTimes study have differing effects, which are statistically notable. This finding may lead to further investigation into which specific treatments differ from each other and how these differences might be exploited or managed in practical applications, such as clinical, psychological, or educational settings where such treatments or interventions are used.</p>
+<ol start="3" style="list-style-type: decimal">
+<li>Tests for Proportions</li>
+</ol>
+<ol style="list-style-type: lower-alpha">
+<li>Chi-Square Test of Independence</li>
+</ol>
+<p>Testing if transmission type (am) is independent of engine cylinders (cyl).</p>
+<div class="sourceCode" id="cb187"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">table_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">am</span>, <span class="va">mtcars</span><span class="op">$</span><span class="va">cyl</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/chisq.test.html">chisq.test</a></span><span class="op">(</span><span class="va">table_data</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in chisq.test(table_data): Chi-squared</span></span>
+<span><span class="co">#&gt; approximation may be incorrect</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  Pearson's Chi-squared test</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; data:  table_data</span></span>
+<span><span class="co">#&gt; X-squared = 8.7407, df = 2, p-value = 0.01265</span></span></code></pre></div>
+<p>The results of the Pearson’s Chi-squared test suggest a significant relationship between the type of transmission and the number of cylinders in the vehicles. This finding implies that certain transmission types might be more or less common in vehicles with different numbers of cylinders, potentially reflecting design preferences, performance characteristics, or market trends specific to certain types of vehicles. This insight could be valuable for automotive manufacturers and marketers who are targeting specific segments of the car market.</p>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>Fisher’s Exact Test</li>
+</ol>
+<p>Let’s create a hypothetical dataset that is suitable for this test</p>
+<div class="sourceCode" id="cb188"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># </span></span>
+<span><span class="co"># Data: Drug success (Yes, No) by Treatment group (Drug, Placebo)</span></span>
+<span><span class="va">drug_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html">matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">3</span><span class="op">)</span>, ncol <span class="op">=</span> <span class="fl">2</span>, byrow <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>                    dimnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Drug"</span>, <span class="st">"Placebo"</span><span class="op">)</span>,</span>
+<span>                                    <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Success"</span>, <span class="st">"Failure"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">drug_data</span></span>
+<span><span class="co">#&gt;         Success Failure</span></span>
+<span><span class="co">#&gt; Drug          4       1</span></span>
+<span><span class="co">#&gt; Placebo       1       3</span></span>
+<span><span class="co"># Perform Fisher's Exact Test</span></span>
+<span><span class="va">fisher_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/fisher.test.html">fisher.test</a></span><span class="op">(</span><span class="va">drug_data</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Print the results</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span><span class="va">fisher_results</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  Fisher's Exact Test for Count Data</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; data:  drug_data</span></span>
+<span><span class="co">#&gt; p-value = 0.2063</span></span>
+<span><span class="co">#&gt; alternative hypothesis: true odds ratio is not equal to 1</span></span>
+<span><span class="co">#&gt; 95 percent confidence interval:</span></span>
+<span><span class="co">#&gt;    0.3071304 776.3482393</span></span>
+<span><span class="co">#&gt; sample estimates:</span></span>
+<span><span class="co">#&gt; odds ratio </span></span>
+<span><span class="co">#&gt;   8.355086</span></span></code></pre></div>
+<p>The results suggest that while there might be a difference in the odds of the event occurring between the two groups, the data do not provide strong enough evidence to assert that there is a statistically significant association between the groups under study. The wide confidence interval for the odds ratio further underscores the need for cautious interpretation of the odds ratio estimate. More data or additional studies might be required to clarify the nature of the relationship between these groups.</p>
+<ol start="3" style="list-style-type: lower-alpha">
+<li>One-Proportion Z-Test</li>
+</ol>
+<p>Testing if the proportion of cars with more than 4 cylinders is different from 50%.</p>
+<div class="sourceCode" id="cb189"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/prop.test.html">prop.test</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">cyl</span> <span class="op">&gt;</span> <span class="fl">4</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">)</span>, p <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  1-sample proportions test with continuity correction</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; data:  sum(mtcars$cyl &gt; 4) out of nrow(mtcars), null probability 0.5</span></span>
+<span><span class="co">#&gt; X-squared = 2.5312, df = 1, p-value = 0.1116</span></span>
+<span><span class="co">#&gt; alternative hypothesis: true p is not equal to 0.5</span></span>
+<span><span class="co">#&gt; 95 percent confidence interval:</span></span>
+<span><span class="co">#&gt;  0.4677478 0.8082695</span></span>
+<span><span class="co">#&gt; sample estimates:</span></span>
+<span><span class="co">#&gt;       p </span></span>
+<span><span class="co">#&gt; 0.65625</span></span></code></pre></div>
+<p>The results suggest that the proportion of cars with more than 4 cylinders in the mtcars dataset does not significantly differ from the hypothesized 50%. The p-value indicates that the observed difference could reasonably occur by chance under the null hypothesis. The confidence interval includes the null value (0.5), further supporting this conclusion. This finding implies that there may not be a strong bias towards cars with more than 4 cylinders in the mtcars dataset, although the observed proportion leans slightly towards a higher number of cylinders. More data or a larger sample might provide clearer insights or more definitive evidence regarding the distribution of cylinder numbers in cars.</p>
+<ol start="4" style="list-style-type: lower-alpha">
+<li>Two-Proportion Z-Test</li>
+</ol>
+<p>Comparing proportion of manual vs automatic cars that are 6-cylinder.</p>
+<div class="sourceCode" id="cb190"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">manual_six</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">cyl</span> <span class="op">==</span> <span class="fl">6</span> <span class="op">&amp;</span> <span class="va">mtcars</span><span class="op">$</span><span class="va">am</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="va">auto_six</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">cyl</span> <span class="op">==</span> <span class="fl">6</span> <span class="op">&amp;</span> <span class="va">mtcars</span><span class="op">$</span><span class="va">am</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/prop.test.html">prop.test</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">manual_six</span>, <span class="va">auto_six</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">am</span> <span class="op">==</span> <span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">am</span> <span class="op">==</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in prop.test(c(manual_six, auto_six),</span></span>
+<span><span class="co">#&gt; c(sum(mtcars$am == 1), sum(mtcars$am == : Chi-squared</span></span>
+<span><span class="co">#&gt; approximation may be incorrect</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  2-sample test for equality of proportions with</span></span>
+<span><span class="co">#&gt;  continuity correction</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; data:  c(manual_six, auto_six) out of c(sum(mtcars$am == 1), sum(mtcars$am == 0))</span></span>
+<span><span class="co">#&gt; X-squared = 2.8616e-32, df = 1, p-value = 1</span></span>
+<span><span class="co">#&gt; alternative hypothesis: two.sided</span></span>
+<span><span class="co">#&gt; 95 percent confidence interval:</span></span>
+<span><span class="co">#&gt;  -0.2933577  0.3338435</span></span>
+<span><span class="co">#&gt; sample estimates:</span></span>
+<span><span class="co">#&gt;    prop 1    prop 2 </span></span>
+<span><span class="co">#&gt; 0.2307692 0.2105263</span></span></code></pre></div>
+<p>Given the peculiar results, especially the p-value and chi-squared statistic, it would be prudent to double-check the input data and consider whether the test assumptions are met or if a different statistical approach might be more appropriate. If the data inputs are correct and the assumptions met, the findings would suggest that transmission type does not significantly influence whether a car has 6 cylinders in the mtcars dataset. This lack of difference could be important for automotive studies examining the relationship between transmission type and engine size, though the unusual statistical outputs warrant a careful review of the data and method.</p>
+<div class="sourceCode" id="cb191"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">smokers</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span> <span class="fl">83</span>, <span class="fl">90</span>, <span class="fl">129</span>, <span class="fl">70</span> <span class="op">)</span></span>
+<span><span class="va">patients</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span> <span class="fl">86</span>, <span class="fl">93</span>, <span class="fl">136</span>, <span class="fl">82</span> <span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/prop.test.html">prop.test</a></span><span class="op">(</span><span class="va">smokers</span>, <span class="va">patients</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  4-sample test for equality of proportions without</span></span>
+<span><span class="co">#&gt;  continuity correction</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; data:  smokers out of patients</span></span>
+<span><span class="co">#&gt; X-squared = 12.6, df = 3, p-value = 0.005585</span></span>
+<span><span class="co">#&gt; alternative hypothesis: two.sided</span></span>
+<span><span class="co">#&gt; sample estimates:</span></span>
+<span><span class="co">#&gt;    prop 1    prop 2    prop 3    prop 4 </span></span>
+<span><span class="co">#&gt; 0.9651163 0.9677419 0.9485294 0.8536585</span></span></code></pre></div>
+<ol start="4" style="list-style-type: decimal">
+<li>Correlation Tests</li>
+</ol>
+<ol style="list-style-type: lower-alpha">
+<li>Pearson Correlation Coefficient</li>
+</ol>
+<p>Correlation between mpg and wt (weight).</p>
+<div class="sourceCode" id="cb192"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.test.html">cor.test</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">mpg</span>, <span class="va">mtcars</span><span class="op">$</span><span class="va">wt</span>, method <span class="op">=</span> <span class="st">"pearson"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  Pearson's product-moment correlation</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; data:  mtcars$mpg and mtcars$wt</span></span>
+<span><span class="co">#&gt; t = -9.559, df = 30, p-value = 1.294e-10</span></span>
+<span><span class="co">#&gt; alternative hypothesis: true correlation is not equal to 0</span></span>
+<span><span class="co">#&gt; 95 percent confidence interval:</span></span>
+<span><span class="co">#&gt;  -0.9338264 -0.7440872</span></span>
+<span><span class="co">#&gt; sample estimates:</span></span>
+<span><span class="co">#&gt;        cor </span></span>
+<span><span class="co">#&gt; -0.8676594</span></span></code></pre></div>
+<p>The findings from the Pearson correlation test provide clear evidence that an increase in car weight is associated with a decrease in miles per gallon in the mtcars dataset. This relationship is both strong and statistically significant, with nearly no chance of occurring due to random variation in the sample. Such insights are crucial for automotive design and consumer choice, particularly in discussions around fuel efficiency and vehicle performance optimization.</p>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>Spearman’s Rank Correlation</li>
+</ol>
+<p>Correlation between mpg and hp (horsepower).</p>
+<div class="sourceCode" id="cb193"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.test.html">cor.test</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">mpg</span>, <span class="va">mtcars</span><span class="op">$</span><span class="va">hp</span>, method <span class="op">=</span> <span class="st">"spearman"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in cor.test.default(mtcars$mpg, mtcars$hp, method =</span></span>
+<span><span class="co">#&gt; "spearman"): Cannot compute exact p-value with ties</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  Spearman's rank correlation rho</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; data:  mtcars$mpg and mtcars$hp</span></span>
+<span><span class="co">#&gt; S = 10337, p-value = 5.086e-12</span></span>
+<span><span class="co">#&gt; alternative hypothesis: true rho is not equal to 0</span></span>
+<span><span class="co">#&gt; sample estimates:</span></span>
+<span><span class="co">#&gt;        rho </span></span>
+<span><span class="co">#&gt; -0.8946646</span></span></code></pre></div>
+<p>The test results suggest that cars with higher horsepower tend to have lower fuel efficiency, as measured by miles per gallon, in the mtcars dataset. This finding could be useful for automotive manufacturers and buyers who prioritize fuel efficiency. The high degree of correlation provides robust evidence that increasing horsepower in vehicle design typically comes at the expense of fuel economy. This relationship is an important consideration for both engineering and marketing strategies in the automotive industry.</p>
+<ol start="3" style="list-style-type: lower-alpha">
+<li>Kendall’s Tau</li>
+</ol>
+<p>Correlation between mpg and disp (displacement).</p>
+<div class="sourceCode" id="cb194"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.test.html">cor.test</a></span><span class="op">(</span><span class="va">mtcars</span><span class="op">$</span><span class="va">mpg</span>, <span class="va">mtcars</span><span class="op">$</span><span class="va">disp</span>, method <span class="op">=</span> <span class="st">"kendall"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; Warning in cor.test.default(mtcars$mpg, mtcars$disp, method</span></span>
+<span><span class="co">#&gt; = "kendall"): Cannot compute exact p-value with ties</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;  Kendall's rank correlation tau</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; data:  mtcars$mpg and mtcars$disp</span></span>
+<span><span class="co">#&gt; z = -6.1083, p-value = 1.007e-09</span></span>
+<span><span class="co">#&gt; alternative hypothesis: true tau is not equal to 0</span></span>
+<span><span class="co">#&gt; sample estimates:</span></span>
+<span><span class="co">#&gt;        tau </span></span>
+<span><span class="co">#&gt; -0.7681311</span></span></code></pre></div>
+<p>The significant results from Kendall’s test confirm that increases in engine displacement are associated with decreases in fuel efficiency across the cars sampled in the mtcars dataset. This finding is crucial for understanding how engine size affects fuel economy and can guide both consumer choices and manufacturer designs, especially in contexts where fuel efficiency is a priority. This correlation is an essential consideration in automotive design, influencing decisions about engine specifications in relation to fuel economy objectives.</p>
+</div>
+<div id="exercises-hypothesis-testing" class="section level2 unnumbered">
+<h2>Exercises Hypothesis Testing<a class="anchor" aria-label="anchor" href="#exercises-hypothesis-testing"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="exercise-1-7" class="section level2 unnumbered">
+<h2>Exercise 1<a class="anchor" aria-label="anchor" href="#exercise-1-7"><i class="fas fa-link"></i></a>
+</h2>
+<p>Test if the average wind speed in the airquality dataset is significantly different from 10 mph.</p>
+</div>
+<div id="exercise-2-6" class="section level2 unnumbered">
+<h2>Exercise 2<a class="anchor" aria-label="anchor" href="#exercise-2-6"><i class="fas fa-link"></i></a>
+</h2>
+<div id="independent-two-sample-t-test-plantgrowth-dataset" class="section level3 unnumbered">
+<h3>Independent Two-Sample t-Test: PlantGrowth Dataset<a class="anchor" aria-label="anchor" href="#independent-two-sample-t-test-plantgrowth-dataset"><i class="fas fa-link"></i></a>
+</h3>
+<p>Compare the means of weight between two groups of plants: ctrl and trt1.</p>
+</div>
+</div>
+<div id="exercise-3-2" class="section level2 unnumbered">
+<h2>Exercise 3<a class="anchor" aria-label="anchor" href="#exercise-3-2"><i class="fas fa-link"></i></a>
+</h2>
+<div id="paired-t-test" class="section level3" number="0.0.4">
+<h3>
+<span class="header-section-number">0.0.4</span> Paired t-Test<a class="anchor" aria-label="anchor" href="#paired-t-test"><i class="fas fa-link"></i></a>
+</h3>
+<p>Use the following data to perform a T-test to check if the score after is greater than before.</p>
+<p>The data is about 20 students testing before and after studying .</p>
+<div class="sourceCode" id="cb195"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">before</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">12.2</span>, <span class="fl">14.6</span>, <span class="fl">13.4</span>, <span class="fl">11.2</span>, <span class="fl">12.7</span>, <span class="fl">10.4</span>, <span class="fl">15.8</span>, <span class="fl">13.9</span>, <span class="fl">9.5</span>, <span class="fl">14.2</span><span class="op">)</span></span>
+<span><span class="va">after</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">13.5</span>, <span class="fl">15.2</span>, <span class="fl">13.6</span>, <span class="fl">12.8</span>, <span class="fl">13.7</span>, <span class="fl">11.3</span>, <span class="fl">16.5</span>, <span class="fl">13.4</span>, <span class="fl">8.7</span>, <span class="fl">14.6</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb196"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>subject <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span>, </span>
+<span>                   time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"before"</span>, <span class="st">"after"</span><span class="op">)</span>, each <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>,</span>
+<span>                   score <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="va">before</span>, <span class="va">after</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>We reject the null hypothesis.</p>
+</div>
+</div>
+<div id="exercise-4-3" class="section level2 unnumbered">
+<h2>Exercise 4<a class="anchor" aria-label="anchor" href="#exercise-4-3"><i class="fas fa-link"></i></a>
+</h2>
+<div id="one-way-anova-chickweight-dataset" class="section level3 unnumbered">
+<h3>One-Way ANOVA: ChickWeight Dataset<a class="anchor" aria-label="anchor" href="#one-way-anova-chickweight-dataset"><i class="fas fa-link"></i></a>
+</h3>
+<p>Test if there are differences in weight across different feed types.</p>
+</div>
+</div>
+<div id="exercise-5-3" class="section level2 unnumbered">
+<h2>Exercise 5<a class="anchor" aria-label="anchor" href="#exercise-5-3"><i class="fas fa-link"></i></a>
+</h2>
+<div id="repeated-measures-anova-orthodont-dataset" class="section level3 unnumbered">
+<h3>Repeated Measures ANOVA: Orthodont Dataset<a class="anchor" aria-label="anchor" href="#repeated-measures-anova-orthodont-dataset"><i class="fas fa-link"></i></a>
+</h3>
+<p>Load Orthodont dataset from the nlme package and then fit a repeated measures model</p>
+</div>
+</div>
+<div id="tests-for-comparing-medians" class="section level2 unnumbered">
+<h2>Tests for Comparing Medians<a class="anchor" aria-label="anchor" href="#tests-for-comparing-medians"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="exercise-6" class="section level2 unnumbered">
+<h2>Exercise 6<a class="anchor" aria-label="anchor" href="#exercise-6"><i class="fas fa-link"></i></a>
+</h2>
+<div id="mann-whitney-u-test-insectsprays-dataset" class="section level3" number="0.0.5">
+<h3>
+<span class="header-section-number">0.0.5</span> Mann-Whitney U Test: InsectSprays Dataset<a class="anchor" aria-label="anchor" href="#mann-whitney-u-test-insectsprays-dataset"><i class="fas fa-link"></i></a>
+</h3>
+<p>Compare the effectiveness of two insect sprays.</p>
+</div>
+</div>
+<div id="exercise-7" class="section level2 unnumbered">
+<h2>Exercise 7<a class="anchor" aria-label="anchor" href="#exercise-7"><i class="fas fa-link"></i></a>
+</h2>
+<div id="wilcoxon-signed-rank-test-airquality-dataset" class="section level3 unnumbered">
+<h3>Wilcoxon Signed-Rank Test: Airquality Dataset<a class="anchor" aria-label="anchor" href="#wilcoxon-signed-rank-test-airquality-dataset"><i class="fas fa-link"></i></a>
+</h3>
+<p>Compare Ozone levels from the first half to the second half of the dataset.</p>
+</div>
+</div>
+<div id="exercise-8" class="section level2 unnumbered">
+<h2>Exercise 8<a class="anchor" aria-label="anchor" href="#exercise-8"><i class="fas fa-link"></i></a>
+</h2>
+<p>###Kruskal-Wallis Test: ChickWeight Dataset {-}</p>
+<p>Compare the weights across different diets using Kruskal-Wallis test.</p>
+</div>
+<div id="tests-for-proportions" class="section level2 unnumbered">
+<h2>Tests for Proportions<a class="anchor" aria-label="anchor" href="#tests-for-proportions"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="exercise-9" class="section level2 unnumbered">
+<h2>Exercise 9<a class="anchor" aria-label="anchor" href="#exercise-9"><i class="fas fa-link"></i></a>
+</h2>
+<div id="chi-square-test-of-independence-haireyecolor-dataset" class="section level3" number="0.0.6">
+<h3>
+<span class="header-section-number">0.0.6</span> Chi-Square Test of Independence: HairEyeColor Dataset<a class="anchor" aria-label="anchor" href="#chi-square-test-of-independence-haireyecolor-dataset"><i class="fas fa-link"></i></a>
+</h3>
+<p>Test if hair color is independent of eye color.</p>
+</div>
+</div>
+<div id="exercise-10" class="section level2 unnumbered">
+<h2>Exercise 10<a class="anchor" aria-label="anchor" href="#exercise-10"><i class="fas fa-link"></i></a>
+</h2>
+<div id="one-proportion-z-test-using-airquality-dataset" class="section level3 unnumbered">
+<h3>One-Proportion Z-Test: Using Airquality Dataset<a class="anchor" aria-label="anchor" href="#one-proportion-z-test-using-airquality-dataset"><i class="fas fa-link"></i></a>
+</h3>
+<p>Suppose you want to analyze the proportion of observations where chick weights exceed 250.</p>
+</div>
+</div>
+<div id="correlation-tests" class="section level2 unnumbered">
+<h2>Correlation Tests<a class="anchor" aria-label="anchor" href="#correlation-tests"><i class="fas fa-link"></i></a>
+</h2>
+</div>
+<div id="exercise-11" class="section level2 unnumbered">
+<h2>Exercise 11<a class="anchor" aria-label="anchor" href="#exercise-11"><i class="fas fa-link"></i></a>
+</h2>
+<div id="pearson-correlation-coefficient-using-usjudgeratings-dataset" class="section level3" number="0.0.7">
+<h3>
+<span class="header-section-number">0.0.7</span> Pearson Correlation Coefficient: Using USJudgeRatings Dataset<a class="anchor" aria-label="anchor" href="#pearson-correlation-coefficient-using-usjudgeratings-dataset"><i class="fas fa-link"></i></a>
+</h3>
+<p>Correlation between lawyer Judicial integrity and their judicial Diligence</p>
+</div>
+</div>
+<div id="exercise-12" class="section level2 unnumbered">
+<h2>Exercise 12<a class="anchor" aria-label="anchor" href="#exercise-12"><i class="fas fa-link"></i></a>
+</h2>
+<div id="spearmans-rank-correlation-using-usjudgeratings-dataset" class="section level3" number="0.0.8">
+<h3>
+<span class="header-section-number">0.0.8</span> Spearman’s Rank Correlation: Using USJudgeRatings Dataset<a class="anchor" aria-label="anchor" href="#spearmans-rank-correlation-using-usjudgeratings-dataset"><i class="fas fa-link"></i></a>
+</h3>
+<p>Correlation between lawyers’ rating of integrity and their number of contacts with judge</p>
+</div>
+</div>
+<div id="exercise-13" class="section level2 unnumbered">
+<h2>Exercise 13<a class="anchor" aria-label="anchor" href="#exercise-13"><i class="fas fa-link"></i></a>
+</h2>
+<div id="kendalls-tau-using-usjudgeratings-dataset" class="section level3 unnumbered">
+<h3>Kendall’s Tau: Using USJudgeRatings Dataset<a class="anchor" aria-label="anchor" href="#kendalls-tau-using-usjudgeratings-dataset"><i class="fas fa-link"></i></a>
+</h3>
+<p>Correlation between preparation for trial and their diligence</p>
+
+</div>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="part-iii-advanced-data-visualization.html">Part III: Advanced Data Visualization</a></div>
+<div class="next"><a href="optional-part-v-working-with-dates-and-times-20-minutes.html">(Optional) Part V: Working with Dates and Times (20 minutes)</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#part-iv-statistical-analysis">Part IV: Statistical Analysis</a></li>
+<li><a class="nav-link" href="#introduction-to-hypothesis-testing-and-statistical-tests">Introduction to hypothesis testing and statistical tests</a></li>
+<li><a class="nav-link" href="#comparing-variances">Comparing Variances</a></li>
+<li><a class="nav-link" href="#performing-tests">Performing Tests</a></li>
+<li><a class="nav-link" href="#exercises-hypothesis-testing">Exercises Hypothesis Testing</a></li>
+<li><a class="nav-link" href="#exercise-1-7">Exercise 1</a></li>
+<li>
+<a class="nav-link" href="#exercise-2-6">Exercise 2</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#independent-two-sample-t-test-plantgrowth-dataset">Independent Two-Sample t-Test: PlantGrowth Dataset</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#exercise-3-2">Exercise 3</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#paired-t-test"><span class="header-section-number">0.0.4</span> Paired t-Test</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#exercise-4-3">Exercise 4</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#one-way-anova-chickweight-dataset">One-Way ANOVA: ChickWeight Dataset</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#exercise-5-3">Exercise 5</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#repeated-measures-anova-orthodont-dataset">Repeated Measures ANOVA: Orthodont Dataset</a></li></ul>
+</li>
+<li><a class="nav-link" href="#tests-for-comparing-medians">Tests for Comparing Medians</a></li>
+<li>
+<a class="nav-link" href="#exercise-6">Exercise 6</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#mann-whitney-u-test-insectsprays-dataset"><span class="header-section-number">0.0.5</span> Mann-Whitney U Test: InsectSprays Dataset</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#exercise-7">Exercise 7</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#wilcoxon-signed-rank-test-airquality-dataset">Wilcoxon Signed-Rank Test: Airquality Dataset</a></li></ul>
+</li>
+<li><a class="nav-link" href="#exercise-8">Exercise 8</a></li>
+<li><a class="nav-link" href="#tests-for-proportions">Tests for Proportions</a></li>
+<li>
+<a class="nav-link" href="#exercise-9">Exercise 9</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#chi-square-test-of-independence-haireyecolor-dataset"><span class="header-section-number">0.0.6</span> Chi-Square Test of Independence: HairEyeColor Dataset</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#exercise-10">Exercise 10</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#one-proportion-z-test-using-airquality-dataset">One-Proportion Z-Test: Using Airquality Dataset</a></li></ul>
+</li>
+<li><a class="nav-link" href="#correlation-tests">Correlation Tests</a></li>
+<li>
+<a class="nav-link" href="#exercise-11">Exercise 11</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#pearson-correlation-coefficient-using-usjudgeratings-dataset"><span class="header-section-number">0.0.7</span> Pearson Correlation Coefficient: Using USJudgeRatings Dataset</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#exercise-12">Exercise 12</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#spearmans-rank-correlation-using-usjudgeratings-dataset"><span class="header-section-number">0.0.8</span> Spearman’s Rank Correlation: Using USJudgeRatings Dataset</a></li></ul>
+</li>
+<li>
+<a class="nav-link" href="#exercise-13">Exercise 13</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#kendalls-tau-using-usjudgeratings-dataset">Kendall’s Tau: Using USJudgeRatings Dataset</a></li></ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>R Workshop</strong>" was written by Dilan Caro. It was last built on 2024-05-30.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

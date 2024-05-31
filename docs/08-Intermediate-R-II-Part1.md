@@ -1,11 +1,10 @@
 
-# Intermediate R II {-}
 
 In this session , we will do some more advanced data visualization ,and  statistical analysis. 
 
 If time permits, we will cover Dates and Times
 
-# Part I: Advanced Data Visualization {-}
+# Part III: Advanced Data Visualization {-}
 
 The aim of the `ggplot2` package is to create elegant data visualizations using the grammar of graphics.
 
