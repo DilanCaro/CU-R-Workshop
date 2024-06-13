@@ -1,7 +1,7 @@
 --- 
 title: "R Workshop"
 author: "Dilan Caro"
-date: "2024-05-30"
+date: "2024-06-12"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib, packages.bib]
@@ -10,7 +10,7 @@ cover-image: images/CU_logo.png
 description: |
   This is an R workshop for 2024 STAR cohort members.
 #link-citations: yes
-#github-repo: rstudio/bookdown-demo
+github-repo: rstudio/bookdown-demo
 ---
 
 # Welcome {-}
@@ -18,10 +18,16 @@ description: |
 <img src="images/CU STAR.png" width="100%" />
 </center>
 
+
 Are you ready to embark on an exciting journey into the world of data analysis and statistical exploration? Imagine having the power to unlock the hidden insights within vast datasets, create stunning visualizations, and make data-driven decisions that can shape the future. Welcome to the world of R programming! R is not just a language; it's your key to uncovering the stories data has to tell. Whether you're a budding data scientist, a curious researcher, or someone who simply loves solving puzzles, R offers you a thrilling adventure where you'll learn to command data with precision and creativity. Get ready to be amazed by the endless possibilities of R and join a global community of data enthusiasts who are reshaping the world, one analysis at a time.
 
 In this website, you will have resources, examples and practice to master R.^[Disclaimer: The logos and names of Columbia University are used with permission for the purpose of this workshop only. The content and opinions expressed in these materials are solely those of the author and do not represent the views or policies of Columbia University. Columbia University is not responsible for any content or representations made within these materials.
 ]
+
+Our Github repository will contain materials, cheat sheets and more. Find it [here](https://github.com/DilanCaro/CU-R-Workshop) or below. 
+
+https://github.com/DilanCaro/CU-R-Workshop
+
 
 ## Objectives {-}
 

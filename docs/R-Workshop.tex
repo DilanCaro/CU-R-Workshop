@@ -120,7 +120,7 @@
 
 \title{R Workshop}
 \author{Dilan Caro}
-\date{2024-05-30}
+\date{2024-06-12}
 
 \begin{document}
 \maketitle
@@ -137,6 +137,10 @@
 Are you ready to embark on an exciting journey into the world of data analysis and statistical exploration? Imagine having the power to unlock the hidden insights within vast datasets, create stunning visualizations, and make data-driven decisions that can shape the future. Welcome to the world of R programming! R is not just a language; it's your key to uncovering the stories data has to tell. Whether you're a budding data scientist, a curious researcher, or someone who simply loves solving puzzles, R offers you a thrilling adventure where you'll learn to command data with precision and creativity. Get ready to be amazed by the endless possibilities of R and join a global community of data enthusiasts who are reshaping the world, one analysis at a time.
 
 In this website, you will have resources, examples and practice to master R.\footnote{Disclaimer: The logos and names of Columbia University are used with permission for the purpose of this workshop only. The content and opinions expressed in these materials are solely those of the author and do not represent the views or policies of Columbia University. Columbia University is not responsible for any content or representations made within these materials.}
+
+Our Github repository will contain materials, cheat sheets and more. Find it \href{https://github.com/DilanCaro/CU-R-Workshop}{here} or below.
+
+\url{https://github.com/DilanCaro/CU-R-Workshop}
 
 \section*{Objectives}\label{objectives}
 \addcontentsline{toc}{section}{Objectives}
@@ -2859,7 +2863,7 @@ First , we need to load this package
 \CommentTok{\#\textgreater{} {-}{-} Attaching core tidyverse packages {-}{-}{-}{-} tidyverse 2.0.0 {-}{-}}
 \CommentTok{\#\textgreater{} v dplyr     1.1.4     v readr     2.1.4}
 \CommentTok{\#\textgreater{} v forcats   1.0.0     v stringr   1.5.1}
-\CommentTok{\#\textgreater{} v ggplot2   3.5.0     v tibble    3.2.1}
+\CommentTok{\#\textgreater{} v ggplot2   3.5.1     v tibble    3.2.1}
 \CommentTok{\#\textgreater{} v lubridate 1.9.3     v tidyr     1.3.0}
 \CommentTok{\#\textgreater{} v purrr     1.0.2     }
 \CommentTok{\#\textgreater{} {-}{-} Conflicts {-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-} tidyverse\_conflicts() {-}{-}}
@@ -4616,14 +4620,14 @@ Statistical tests vary based on the type of data and the research question. Comm
 \CommentTok{\#\textgreater{}  F test to compare two variances}
 \CommentTok{\#\textgreater{} }
 \CommentTok{\#\textgreater{} data:  x and y}
-\CommentTok{\#\textgreater{} F = 3.7893, num df = 49, denom df = 29, p{-}value =}
-\CommentTok{\#\textgreater{} 0.0002635}
+\CommentTok{\#\textgreater{} F = 7.0642, num df = 49, denom df = 29, p{-}value =}
+\CommentTok{\#\textgreater{} 3.238e{-}07}
 \CommentTok{\#\textgreater{} alternative hypothesis: true ratio of variances is not equal to 1}
 \CommentTok{\#\textgreater{} 95 percent confidence interval:}
-\CommentTok{\#\textgreater{}  1.903814 7.129185}
+\CommentTok{\#\textgreater{}   3.549198 13.290630}
 \CommentTok{\#\textgreater{} sample estimates:}
 \CommentTok{\#\textgreater{} ratio of variances }
-\CommentTok{\#\textgreater{}           3.789265}
+\CommentTok{\#\textgreater{}           7.064162}
 \end{Highlighting}
 \end{Shaded}
 
@@ -4738,13 +4742,13 @@ Testing two normal distributions
 \CommentTok{\#\textgreater{}  Ansari{-}Bradley test}
 \CommentTok{\#\textgreater{} }
 \CommentTok{\#\textgreater{} data:  rnorm(100) and rnorm(100, 0, 2)}
-\CommentTok{\#\textgreater{} AB = 6476, p{-}value = 3.196e{-}12}
+\CommentTok{\#\textgreater{} AB = 6202, p{-}value = 1.804e{-}08}
 \CommentTok{\#\textgreater{} alternative hypothesis: true ratio of scales is not equal to 1}
 \CommentTok{\#\textgreater{} 95 percent confidence interval:}
-\CommentTok{\#\textgreater{}  0.3068226 0.4968765}
+\CommentTok{\#\textgreater{}  0.3570530 0.5994205}
 \CommentTok{\#\textgreater{} sample estimates:}
 \CommentTok{\#\textgreater{} ratio of scales }
-\CommentTok{\#\textgreater{}       0.3864499}
+\CommentTok{\#\textgreater{}       0.4689279}
 \end{Highlighting}
 \end{Shaded}
 
