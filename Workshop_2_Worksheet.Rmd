@@ -1,0 +1,1345 @@
+---
+title: "Workshop 2 Worksheet"
+author: "Your name"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Download the data.
+Data we will use , 
+
+- swimming_pools.csv
+- flower.xls
+- journals.txt
+- PolicyData.csv
+- Parade2005.txt.
+- danish.txt
+- car_price.csv
+- urbanpop.xlsx
+
+
+If you want this file to run right off the bat, make sure this file is saved in a folder that contains this file and a folder with the name "Data" that will contain the data. Otherwise, you can search and include the respective path for your files.
+
+Required libraries
+
+```{r}
+#install.packages("dplyr") # uncomment to install the package
+library(dplyr)
+#install.packages("ggplot2")
+library(ggplot2)
+#install.packages("readxl")
+library(readxl)
+#install.packages("vioplot")
+library(vioplot)
+#install.packages("lubridate")
+library(lubridate)
+#install.packages("AER")
+library(AER)
+#install.packages("gapminder")
+library(gapminder)
+```
+
+# From last workshop
+
+### Import
+
+```{r}
+path <- file.path("./Data")
+path.pools <- file.path(path, "swimming_pools.csv" )
+pools <- read.csv(path.pools)
+# You can also do 
+#pools<-read.csv("Data/swimming_pools.csv")
+str(pools)
+```
+
+
+```{r}
+library(readxl)
+path.urbanpop <- file.path(path, "urbanpop.xlsx")
+excel_sheets(path.urbanpop) 
+
+```
+
+```{r}
+pop_1 <- read_excel(path.urbanpop, sheet = 1)
+pop_2 <- read_excel(path.urbanpop, sheet = "1967-1974")
+pop_list <- list(pop_1, pop_2)
+pop_list
+str(pop_1)
+```
+
+# Basic Plotting {-}
+
+```{r}
+#?plot
+x <- 1:10
+y <- rnorm(10)
+plot(x,y)
+plot(x, y, main = "Simple Scatter Plot", xlab = "X Axis", ylab = "Y Axis", col = "blue", pch =20, lwd =4 , type ="p") #o overplotted, l line, 
+```
+
+## Example {-}
+
+Journal dataset. 
+
+```{r}
+Journals <- read.csv("./Data/journals.txt", sep="")
+```
+
+
+```{r}
+plot(Journals$subs, Journals$price)
+rug(Journals$subs) # Density / Distribution of the datapoints
+rug(Journals$price, side = 2)
+```
+
+```{r}
+qqnorm(Journals$subs, main = "Q-Q Plot for Subscriptions")
+qqline(Journals$subs, col = "red")
+```
+
+```{r}
+plot(log(Journals$subs), log(Journals$price))
+rug(log(Journals$subs))
+rug(log(Journals$price), side = 2)
+```
+
+
+```{r}
+qqnorm(log(Journals$subs), main = "Q-Q Plot for Subscriptions")
+qqline(log(Journals$subs), col = "red")
+```
+
+
+```{r}
+plot(log(Journals$price) ~ log(Journals$subs), pch = 19,
+     col = "blue", xlim = c(0, 7), ylim = c(3, 8),
+     main = "Library subscriptions")
+rug(log(Journals$subs))
+rug(log(Journals$price), side=2)
+```
+
+```{r}
+data(mtcars)
+
+plot(mtcars$hp, mtcars$mpg, main="MPG vs. Horsepower",
+     xlab="Horsepower", ylab="Miles Per Gallon",
+     pch=19, col="blue")
+```
+
+```{r}
+data(pressure)
+
+# Create a line plot
+plot(pressure$temperature, pressure$pressure, type="l",
+     main="Vapor Pressure of Mercury",
+     xlab="Temperature", ylab="Pressure",
+     col="red", lwd=2)
+```
+
+
+
+```{r}
+data(iris)
+
+# Plot Sepal.Length vs. Sepal.Width colored by Species
+plot(iris$Sepal.Length, iris$Sepal.Width, col=iris$Species,
+     main="Iris Sepal Measurements",
+     xlab="Sepal Length", ylab="Sepal Width",
+     pch=19)
+legend("topright", legend=levels(iris$Species), col=1:3, pch=19)
+```
+```{r}
+str(iris$Species)
+```
+
+
+```{r}
+library(readxl)
+flowers <- read_excel("Data/flower.xls")
+flowers
+plot(flowers$weight)
+```
+
+
+## Making Histograms
+
+```{r}
+hist(flowers$weight)
+```
+
+```{r}
+brk <- seq(from = 0, to = 18, by = 1)
+hist(flowers$height, breaks = brk, main = "petunia height")
+```
+
+```{r}
+brk <- seq(from = 0, to = 18, by = 1)
+hist(flowers$height, breaks = brk, main = "petunia height",
+      freq = FALSE)
+```
+
+
+## Violin plots {-}
+
+```{r}
+#install.packages("vioplot")
+library(vioplot)
+vioplot(weight ~ nitrogen, data = flowers, 
+         ylab = "weight (g)", xlab = "nitrogen level",
+         col = "lightblue")
+```
+```{r}
+plot(flowers)
+```
+
+```{r}
+pairs(flowers[, c("height", "weight", "leafarea", 
+                "shootarea", "flowers")])
+```
+
+# Exploratory data analysis {-}
+
+```{r}
+#install.packages("AER")
+library(AER)
+data("CPS1985")
+str(CPS1985)
+```
+
+```{r}
+hist(log(CPS1985$wage), freq = FALSE, nclass = 20, col = "light blue")
+lines(density(log(CPS1985$wage)), col = "red")
+```
+
+```{r}
+hist(CPS1985$wage, freq = FALSE, nclass = 20, col = "light blue")
+lines(density(CPS1985$wage), col = "red")
+```
+
+The `prop.table()` function in R is used to compute the proportion of table elements over the margin specified (if any). When applied to a contingency table created by the table() function, it transforms the table's counts into proportions, making it easier to analyze the relative distribution of frequencies across different categories.
+
+```{r}
+tab <- table(CPS1985$occupation)
+prop.table(tab)
+barplot(tab)
+pie(tab, col = gray(seq(0.4, 1.0, length = 6)))
+```
+
+```{r}
+attach(CPS1985) # attach the data set to avoid use the operator $
+table(gender, occupation) # no name_df$name_var necessary
+```
+
+```{r}
+prop.table(table(gender, occupation))
+```
+
+The margins in this case 
+
+```{r}
+prop.table(table(gender, occupation), 2)
+prop.table(table(gender, occupation), 1)
+```
+
+```{r}
+plot(gender ~ occupation, data = CPS1985)
+```
+
+
+```{r}
+boxplot(log(wage) ~ gender, data = CPS1985)
+```
+
+```{r}
+boxplot(log(wage) ~ gender +occupation, data = CPS1985)
+```
+
+```{r}
+boxplot(log(wage) ~ gender + education, data = CPS1985)
+```
+
+```{r}
+detach(CPS1985)
+```
+
+# Data Wrangling {-}
+
+
+## Removing NA Values {-}
+
+A common task in data analysis is removing missing values (NAs).
+
+```{r}
+x <- c(1, 2, NA, 4, NA, 5)
+bad <- is.na(x)
+print(bad)
+```
+
+We can remove them by
+
+```{r}
+x[!bad]
+```
+
+A faster way ,
+
+```{r}
+x[!is.na(x)]
+```
+
+
+#### In a Data frame {.unnumbered}
+
+Let's use a coffee data frame with the data of gender, age, and cups per day. 
+
+```{r}
+coffee_data <- data.frame(
+  Age = c(25, 32, NA, 45, 22, 33, NA, 28),
+  Gender = c("Female", "Male", "Male", "Female", "Female", "Male", "Female", NA),
+  Cups_Per_Day = c(1, 3, 2, NA, 2, 3, 1, 2)
+)
+coffee_data
+```
+
+```{r}
+coffee_data_clean <- na.omit(coffee_data)
+coffee_data_clean
+```
+
+To remove rows with missing values in a specific column:
+
+```{r}
+
+coffee_data_clean2 <- coffee_data[!is.na(coffee_data$Age), ]
+coffee_data_clean2
+row.names(coffee_data_clean2) <- NULL
+coffee_data_clean2
+```
+
+What if there are multiple R objects and you want to take the subset
+with no missing values in any of those objects?
+
+```{r}
+x <- c(1, 2, NA, 4, NA, 5)
+y <- c("a", "b", NA, "d", NA, "f")
+good <- complete.cases(x, y)
+good
+x[good]
+y[good]
+```
+
+You can use complete.cases on data frames too.
+
+```{r}
+head(airquality)
+```
+
+```{r}
+good <- complete.cases(airquality)
+head(airquality[good, ])
+```
+
+```{r}
+sd(airquality$Ozone)
+sd(airquality$Ozone, na.rm = TRUE)
+```
+
+
+## Exercise 1: Explore Missingness {.unnumbered}
+
+**Dataset:** ChickWeight
+
+**Task:** Determine if the ChickWeight dataset contains any missing
+values. Print a message stating whether the dataset has missing values
+or not.
+
+*Hint* Use the any() function combined with is.na() applied to the
+dataset.
+
+How to use any()
+
+```{r}
+e<- c(1,2,2,3,2,1,1)
+any(e==1)
+```
+
+
+## Exercise 2: Calculate Summary Statistics Before Handling NA {.unnumbered}
+
+Calculate summary statistics of mtcars's mpg vector
+```{r}
+data(mtcars)
+```
+
+
+
+**Dataset:** mtcars
+
+**Task:** The mtcars dataset is almost complete but let's pretend some
+values are missing in the mpg (miles per gallon) column. First,
+artificially introduce missing values into the mpg column (e.g., set the
+first three values of mpg to NA). Then, calculate and print the mean and
+standard deviation of mpg without removing or imputing the missing
+values.
+
+*Hint:* Modify the mtcars\$mpg directly to introduce NAs. Use mean() and
+sd() functions with na.rm = FALSE to calculate statistics without
+handling NA.
+
+
+## Reshaping data using dplyr functions (filter, arrange, mutate, summarize) {-}
+
+The `dplyr` grammar
+
+Some of the key “verbs” provided by the dplyr package are
+
+- `select`: return a subset of the columns of a data frame, using a flexible notation
+
+- `filter`: extract a subset of rows from a data frame based on logical conditions
+
+- `arrange`: reorder rows of a data frame
+
+- `rename`: rename variables in a data frame
+
+- `mutate`: add new variables/columns or transform existing variables
+
+- `summarise` / `summarize`: generate summary statistics of different variables in the data frame, possibly within strata
+
+- `%>%`: the “pipe” operator is used to connect multiple verb actions together into a pipeline. 
+
+These all combine naturally with group_by() which allows you to perform any operation “by group”. 
+
+### More on the pipe operator {-}
+
+- It takes the output of one statement and makes it the input of the next statement.
+- When describing it, you can think of it as a “THEN”. A first example:
+  - take the diamonds data (from the ggplot2 package) 
+  - then subset
+  
+
+```{r}
+library(dplyr)
+library(ggplot2)
+diamonds %>% filter(cut == "Ideal")
+```
+
+## Filter() {-}
+
+Extract rows that meet logical criteria. Here you go:
+- inspect the diamonds data set
+- filter observations with cut equal to Ideal
+
+```{r}
+filter(diamonds, cut == "Ideal")
+```
+
+
+## Mutate() {-}
+
+Create new columns:
+- inspect the diamonds data set
+- create a new variable price_per_carat
+
+```{r}
+mutate(diamonds, price_per_carat = price/carat)
+```
+##  Multistep operations {-}
+
+Use the `%>%` for multistep operations.
+Passes result on left into first argument of function on right. 
+
+```{r}
+diamonds %>% 
+  mutate(price_per_carat = price/carat)  %>%
+                                            filter(price_per_carat > 1500)
+```
+
+## Summarize() {-}
+
+Compute table of summaries. Here you go:
+
+- inspect the diamonds data set
+- calculate mean and standard deviation of price
+ 
+ 
+```{r}
+diamonds %>% summarize(mean = mean(price), std_dev = sd(price))
+```
+
+
+## Group_by() {-}
+
+Groups cases by common values of one or more columns. Here you go:
+inspect the diamonds data set
+calculate mean and standard deviation of price by level of cut
+ 
+ 
+```{r}
+diamonds %>% 
+        group_by(cut) %>% 
+        summarize(price = mean(price), carat = mean(carat), price_per_carat = price/carat)
+```
+
+### Exercise 1 {-}
+
+1. Load the data Parade2005.txt.
+2. Determine the mean earnings in California.
+3. Determine the number of individuals residing in Idaho.
+4. Determine the mean and the median earnings of celebrities.
+
+```{r}
+#your solution
+```
+
+### Subsetting and filtering Data {-}
+
+```{r}
+# Creating a sample data frame
+data <- data.frame(
+  id = 1:5,
+  name = c("Alice", "Bob", "Charlie", "David", "Eva"),
+  age = c(25, 30, 22, 28, 24)
+)
+data
+# Subsetting by a specific column
+ages <- data$age
+print(ages)
+
+young_adults<- subset(data,age<30)
+print(young_adults)
+```
+
+
+```{r}
+
+data[data$age<30,]
+data[data$age<30,2]
+```
+
+```{r}
+library(dplyr)
+
+young_adults<- data %>% 
+                    filter(age<30)
+young_adults
+```
+
+```{r}
+ages <- data %>% select(age)
+print(ages)
+```
+
+```{r}
+data$salary <- c(55000, 50000, 60000, 52000, 58000)
+print(data)
+```
+
+```{r}
+data$salary <- NULL
+print(data)
+```
+
+```{r}
+c=names(data) == "name"
+names(data)[names(data) == "name"]
+names(data)[names(data) == "name"] <- "first_name"
+print(data)
+```
+
+```{r}
+data<- data %>%
+          mutate(salary = c(55000, 50000, 60000, 52000, 58000))
+data
+```
+
+```{r}
+data <- data %>%
+  select(-salary)
+print(data)
+```
+
+```{r}
+data <- data.frame(
+  id = 1:5,
+  name = c("Alice", "Bob", "Charlie", "David", "Eva"),
+  age = c(25, 30, 22, 28, 24)
+)
+
+data <- data %>%
+  rename(first_name = name)
+print(data)
+```
+
+
+
+```{r}
+data <- data.frame(
+  id = 1:5,
+  name = c("Alice", "Bob", "Charlie", "David", "Eva"),
+  age = c(25, 30, 22, 28, 24)
+)
+data$salary <- c(55000, 50000, 60000, 52000, 58000)
+```
+
+```{r}
+subsetting_data <- within(data[data$age < 30, -which(names(data) == "salary")], names(name) <- "first_name")
+subsetting_data
+```
+
+```{r}
+data <- data %>%
+  mutate(salary = c(55000, 50000, 60000, 52000, 58000))
+```
+
+```{r}
+data <- data %>%
+  filter(age < 30) %>%
+  select(-salary) %>%
+  rename(first_name = name)
+data
+```
+
+## The Policy data set{-}
+
+- PolicyData.csv available in the course material 
+- Data stored in a .csv file.
+- Individual records separated by a semicolon.
+
+
+```{r}
+policy_data <- read.csv(file = 'data/PolicyData.csv', sep = ';')
+```
+
+
+### Exercise 2 {-}
+
+Use the skills you have obtained to.
+
+1. Inspect the top rows of the data set.
+2. How many observations does the data set contain?
+3. Calculate the total exposure (exposition) in each region (type_territoire).
+
+
+```{r}
+# Your solution
+```
+
+## The Gapminder package {.unnumbered}
+
+-   Describes the evolution of a number of population characteristics
+    (GDP, life expectancy, ...) over time.
+
+```{r}
+#install.packages("gapminder")
+library(gapminder)
+```
+
+
+### Exercise 3 {-}
+
+Use the skills obtained :
+
+1.  Inspect the top rows of the data.
+2.  Select the data for countries in Asia.
+3.  Which type of variable is `country`?
+
+
+```{r}
+# Your solution
+```
+
+
+
+## Data Wrangling Exercises {-}
+
+1. Subsetting Data Frames
+
+Create a data frame named student_info with the following columns and data:
+- student_id (1 to 5)
+- student_name ('Alice', 'Bob', 'Charlie', 'David', 'Eva')
+- student_age (25, 30, 22, 28, 24)
+- student_grade ('A', 'B', 'A', 'C', 'B')
+
+Write a command to subset this data frame to include only students older than 24.
+
+2. Using Conditional Filters
+
+- Use the subset() function to find all students with a grade of 'A'.
+- Display the names and ages of these students.
+
+3. Manipulating Data with dplyr
+
+- Load the dplyr package and convert student_info to a tibble with `as_tibble()`
+
+- Use filter() and select() to show the name and age of students who have a grade better than 'B'.
+
+4. Adding and Removing Columns
+
+- Add a new column student_major with values ('Math', 'Science', 'Arts', 'Math', 'Science') to student_info.
+- Then, remove the student_grade column using dplyr.
+
+5. Renaming Columns
+
+-  Rename the student_name column to name using base R functions and then using dplyr.
+
+6. Complex dplyr Operations
+
+- Create a new tibble from student_info that includes all students except those studying 'Arts', rename the student_id column to id, and arrange the students by age in descending order.
+
+7. Exploratory Data Analysis with dplyr
+
+- Calculate the average age of students grouped by their major using group_by() and summarize() in dplyr.
+
+# Advanced Data Visualization {-}
+
+The aim of the `ggplot2` package is to create elegant data visualizations using the grammar of graphics.
+
+Here are the basic steps:
+
+- begin a plot with the function `ggplot()` creating a coordinate system that you can add layers to
+
+-the first argument of `ggplot()` is the dataset to use in the graph
+
+
+We will use the mpg dataset from `ggplot2`
+
+```{r}
+library(ggplot2)
+head(mpg)
+```
+
+Run the following code, 
+
+What do you obtain ?
+
+```{r}
+ggplot(data = mpg)
+ggplot(mpg)
+```
+
+You create an empty graph.
+
+You complete the graph by adding one or more layers to ggplot()
+
+for example:
+- geom_point() adds a layer of points to your plot, which creates a scatterplot
+- geom_smooth() adds a smooth line
+- geom_bar a bar plot.
+
+Each geom function in ggplot2 takes a mapping argument:
+- how variables in your dataset are mapped to visual properties
+- always paired with `aes()` and the and arguments of `aes()` specify which variables to map to the and axes.
+
+```{r}
+library(ggplot2)
+mpg
+```
+
+```{r}
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy))
+```
+
+```{r}
+ggplot(data = mpg) + geom_point(aes(x = displ, y = hwy, color = class))
+```
+
+Compare the following set of instructions: 
+
+- inside of aesthetics
+
+```{r}
+ggplot(mpg) + geom_point(aes(x = displ, y = hwy, color = class))
+```
+
+- inside of aesthetics, not mapped to a variable
+
+```{r}
+ggplot(mpg) + geom_point(aes(x = displ, y = hwy, color = "blue"))
+```
+
+- outside of aesthetics
+
+```{r}
+ggplot(mpg) + geom_point(aes(x = displ, y = hwy), color = "blue")
+```
+
+- Scatterplot
+
+```{r}
+ggplot(mpg) + 
+  geom_point(mapping = aes(x = class, y = hwy))
+```
+
+- boxplot
+
+```{r}
+ggplot(data = mpg) +
+  geom_boxplot(mapping = aes(x = class, y = hwy))
+```
+
+- histogram 
+
+```{r}
+ggplot(data = mpg) +
+  geom_histogram(mapping = aes(x = hwy))
+```
+
+```{r}
+ggplot(data = mpg) +
+  geom_density(mapping = aes(x = hwy))
+```
+
+Now you will add multiple geoms to the same plot. 
+Predict what the following code does:
+
+```{r}
+ggplot(data = mpg) +
+  geom_point(mapping = aes(x = displ, y = hwy)) +
+  geom_smooth(mapping = aes(x = displ, y = hwy))
+```
+
+Mappings and data can be specified global (in `ggplot()`) or local.
+
+```{r}
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+  geom_point() +
+  geom_smooth() + theme_bw()       # adjust theme
+```
+
+**local.**
+
+```{r}
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+  geom_point(mapping = aes(color = drv)) +
+  geom_smooth() + theme_bw()
+```
+
+```{r}
+library(dplyr)
+ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) +
+  geom_point(mapping = aes(color = drv)) +
+  geom_smooth(data = filter(mpg, drv == "f")) + 
+  geom_smooth(data = filter(mpg, drv == "r")) +
+  theme_bw()
+```
+
+## Exercise 4 {-}
+
+Use the Danish fire insurance losses. Plot the arrival of losses over time.
+
+1. Use type= "l" for a line plot, label the and -axis, and give the plot a title using main.
+2. Do the same with instructions from ggplot2. Use geom_line() to create the line plot.
+
+
+## Exercise 5  (optional) {-}
+
+1. Use the data set car_price.csv available in the documentation. Import the data in R.
+
+2. Explore the data.
+
+3. Make a scatterplot of price versus income, use basic plotting instructions and use ggplot2.
+
+4. Add a smooth line to each of the plots (using lines to add a line to an existing plot and lowess to do scatterplot smoothing and using geom_smooth in the ggplot2 grammar).
+
+
+## Adding titles, labels, and themes to plots {-}
+
+```{r}
+# Example: Enhanced bar plot with titles, labels, and a custom theme
+data <- data.frame(
+  category = c("A", "B", "C", "D"),
+  value = c(10, 15, 7, 12)
+)
+ggplot(data, aes(x = category, y = value, fill = category)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Enhanced Bar Plot",
+       subtitle = "Bar plot with custom labels and theme",
+       x = "Category",
+       y = "Value",
+       fill = "Category") +
+  theme_bw() +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+# Performing Tests {-}
+
+# Slides {-}
+
+P-value, Hypothesis testing, null hypothesis, alternate hypothesis.
+
+
+```{r}
+# Set seed for reproducibility
+set.seed(123)
+
+# Generate a sample of bolt lengths using a normal distribution
+n <- 100  # sample size
+mean_length <- 5  # hypothesized mean of the normal distribution
+sd_length <- 1  # standard deviation of the normal distribution
+bolt_lengths <- rnorm(n, mean = mean_length, sd = sd_length)
+bolt_lengths
+```
+
+Actual Hypothesis testing
+```{r}
+# Perform the one-sample t-test
+t_test_result <- t.test(bolt_lengths, mu = 5)
+
+# Display the result of the t-test
+print(t_test_result)
+```
+
+```{r}
+# Set seed for reproducibility
+set.seed(123)
+
+# Generate a sample of bolt lengths using a normal distribution
+n <- 100  # sample size
+mean_length <- 9.5  # hypothesized mean of the normal distribution
+sd_length <- 1  # standard deviation of the normal distribution
+bolt_lengths <- rnorm(n, mean = mean_length, sd = sd_length)
+bolt_lengths
+# Perform the one-sample t-test
+t_test_result <- t.test(bolt_lengths, mu = 5)
+
+# Display the result of the t-test
+print(t_test_result)
+```
+
+
+## Comparing Variances {-}
+
+a. F test to compare variances (Parametric)
+
+```{r}
+x <- rnorm(50, mean = 0, sd = 2)
+y <- rnorm(30, mean = 1, sd = 1)
+var.test(x, y)
+```
+
+b. Barlett test: Testing homogeneity  (Parametric)
+
+Performs Bartlett's test of the null that the variances in each of the groups (samples) are the same.
+
+```{r}
+require(graphics)
+
+plot(count ~ spray, data = InsectSprays)
+bartlett.test(InsectSprays$count, InsectSprays$spray)
+```
+
+c. Fligner-Killeen Test of Homogeneity of Variances (Non-parametric)
+
+```{r}
+fligner.test(InsectSprays$count, InsectSprays$spray)
+```
+
+d. Mood Two-Sample Test of Scale (Non-Parametric)
+
+```{r}
+ramsay <- c(111, 107, 100, 99, 102, 106, 109, 108, 104, 99,
+            101, 96, 97, 102, 107, 113, 116, 113, 110, 98)
+jung.parekh <- c(107, 108, 106, 98, 105, 103, 110, 105, 104,
+            100, 96, 108, 103, 104, 114, 114, 113, 108, 106, 99)
+mood.test(ramsay, jung.parekh)
+```
+
+e. Ansari-Bradley Test (Non-parametric)
+
+```{r}
+ramsay <- c(111, 107, 100, 99, 102, 106, 109, 108, 104, 99,
+            101, 96, 97, 102, 107, 113, 116, 113, 110, 98)
+jung.parekh <- c(107, 108, 106, 98, 105, 103, 110, 105, 104,
+            100, 96, 108, 103, 104, 114, 114, 113, 108, 106, 99)
+ansari.test(ramsay, jung.parekh)
+
+```
+
+Testing two normal distributions
+```{r}
+ansari.test(rnorm(100), rnorm(100, 0, 2), conf.int = TRUE)
+```
+
+##  Tests for Comparing Means {-}
+
+###   One-Sample t-Test {-}
+
+We'll test if the average miles per gallon (mpg) in the mtcars dataset is significantly different from 20 mpg.
+
+```{r}
+t.test(mtcars$mpg, mu = 20)
+```
+
+The results of this one-sample t-test suggest that the average mpg for the cars in the `mtcars` dataset is not significantly different from 20 mpg, as the p-value is far above the typical alpha level of 0.05 used to determine statistical significance. The data supports the null hypothesis that the true mean is 20 mpg, within the confidence interval provided.
+
+### Independent Two-Sample t-Test {-}
+
+We'll compare the means of mpg between cars with automatic (am = 0) and manual (am = 1) transmissions.
+
+```{r}
+auto_mpg <- mtcars$mpg[mtcars$am == 0]
+manual_mpg <- mtcars$mpg[mtcars$am == 1]
+t.test(auto_mpg, manual_mpg, var.equal = TRUE)
+
+```
+
+The results of this two-sample t-test indicate that the average mpg for cars with automatic transmissions significantly differs from those with manual transmissions, as the p-value (0.000285) is well below the alpha level of 0.05 typically used for determining statistical significance. The data strongly support the alternative hypothesis that there is a true difference in means, with manual transmission cars averaging higher mpg (24.39 mpg) compared to automatics (17.15 mpg), as reflected within the confidence interval provided.
+
+### Paired t-Test {-}
+
+Let's use sleep data
+
+```{r}
+# Load the dataset
+data(sleep)
+sleep
+# Perform the paired t-test comparing the effects of two drugs
+t_test_result <- t.test(extra ~ group, data = sleep, paired = TRUE)
+
+# Print the results
+print(t_test_result)
+
+```
+
+The results of this paired t-test suggest that there is a statistically significant difference in the `extra` sleep effects between the two treatment groups, as the p-value (0.002833) is well below the typical alpha level of 0.05 used for determining statistical significance. The data strongly support the alternative hypothesis that the true mean difference in sleep effects is not equal to zero, with an average mean difference of -1.58 hours. This difference indicates that one treatment group experienced a greater increase in sleep duration compared to the other, as confirmed by the confidence interval ranging from -2.46 to -0.70 hours.
+
+### One-Way ANOVA {-}
+
+Test if there are differences in mpg across different levels of the number of cylinders (cyl).
+
+```{r}
+#plot(mpg~as.factor(cyl),data=mtcars)
+anova_model <- aov(mpg ~ factor(cyl), data = mtcars)
+summary(anova_model)
+
+```
+
+The ANOVA analysis clearly shows that the number of cylinders in a vehicle significantly affects its fuel efficiency, with different cylinder groups exhibiting notably different mpg. This finding is robust, with very strong statistical significance, suggesting that engine size, as indicated by the number of cylinders, is a key factor influencing a car's fuel consumption. This information can be vital for both consumers seeking fuel-efficient vehicles and manufacturers aiming to improve vehicle designs.
+
+### One-Proportion Z-Test {-}
+
+Testing if the proportion of cars with more than 4 cylinders is different from 50%.
+
+```{r}
+
+prop.test(sum(mtcars$cyl > 4), nrow(mtcars), p = 0.5)
+
+```
+
+The results suggest that the proportion of cars with more than 4 cylinders in the mtcars dataset does not significantly differ from the hypothesized 50%. The p-value indicates that the observed difference could reasonably occur by chance under the null hypothesis. The confidence interval includes the null value (0.5), further supporting this conclusion. This finding implies that there may not be a strong bias towards cars with more than 4 cylinders in the mtcars dataset, although the observed proportion leans slightly towards a higher number of cylinders. More data or a larger sample might provide clearer insights or more definitive evidence regarding the distribution of cylinder numbers in cars.
+
+### Two-Proportion Z-Test {-}
+
+Comparing proportion of manual vs automatic cars that are 6-cylinder.
+
+```{r}
+manual_six <- sum(mtcars$cyl == 6 & mtcars$am == 1)
+auto_six <- sum(mtcars$cyl == 6 & mtcars$am == 0)
+prop.test(c(manual_six, auto_six), c(sum(mtcars$am == 1), sum(mtcars$am == 0)))
+
+```
+
+Given the peculiar results, especially the p-value and chi-squared statistic, it would be prudent to double-check the input data and consider whether the test assumptions are met or if a different statistical approach might be more appropriate. If the data inputs are correct and the assumptions met, the findings would suggest that transmission type does not significantly influence whether a car has 6 cylinders in the mtcars dataset. This lack of difference could be important for automotive studies examining the relationship between transmission type and engine size, though the unusual statistical outputs warrant a careful review of the data and method.
+
+
+```{r}
+smokers  <- c( 83, 90, 129, 70 )
+patients <- c( 86, 93, 136, 82 )
+prop.test(smokers, patients)
+```
+
+## Correlation Tests {-}
+
+### Pearson Correlation Coefficient {-}
+
+Correlation between mpg and wt (weight).
+
+```{r}
+cor.test(mtcars$mpg, mtcars$wt, method = "pearson")
+```
+
+The findings from the Pearson correlation test provide clear evidence that an increase in car weight is associated with a decrease in miles per gallon in the mtcars dataset. This relationship is both strong and statistically significant, with nearly no chance of occurring due to random variation in the sample. Such insights are crucial for automotive design and consumer choice, particularly in discussions around fuel efficiency and vehicle performance optimization.
+
+
+### Spearman's Rank Correlation {-}
+
+Correlation between mpg and hp (horsepower).
+
+```{r}
+cor.test(mtcars$mpg, mtcars$hp, method = "spearman")
+
+```
+
+The test results suggest that cars with higher horsepower tend to have lower fuel efficiency, as measured by miles per gallon, in the mtcars dataset. This finding could be useful for automotive manufacturers and buyers who prioritize fuel efficiency. The high degree of correlation provides robust evidence that increasing horsepower in vehicle design typically comes at the expense of fuel economy. This relationship is an important consideration for both engineering and marketing strategies in the automotive industry.
+
+# Exercises Hypothesis Testing {-}
+
+## Exercise 1 {-}
+
+Test if the average wind speed in the airquality dataset is significantly different from 10 mph.
+
+```{r}
+#YOUR SOLUTION
+```
+
+## Exercise 2 {-}
+###  Independent Two-Sample t-Test: PlantGrowth Dataset {-}
+
+Compare the means of weight between two groups of plants: ctrl and trt1.
+
+```{r}
+#YOUR SOLUTION
+```
+## Exercise 3 {-}
+### Paired t-Test
+
+Use the following data to perform a T-test to check if the score after is greater than before. 
+
+The data is about 20 students testing before and after studying . 
+
+```{r}
+before <- c(12.2, 14.6, 13.4, 11.2, 12.7, 10.4, 15.8, 13.9, 9.5, 14.2)
+after <- c(13.5, 15.2, 13.6, 12.8, 13.7, 11.3, 16.5, 13.4, 8.7, 14.6)
+```
+
+```{r}
+#YOUR SOLUTION
+```
+
+## Exercise 4 {-}
+
+### One-Way ANOVA: ChickWeight Dataset {-}
+
+Test if there are differences in weight across different feed types.
+
+# Regression Analyses
+
+```{r}
+# Install and load the NHANES package
+#install.packages("NHANES")
+library(NHANES)
+
+# Load the NHANES dataset
+data("NHANES")
+
+# Display the structure of the dataset
+str(NHANES)
+
+# Display the first few rows of the dataset
+head(NHANES)
+
+# Perform linear regression with BPDiaAve as the response variable
+lm_model <- lm(BPDiaAve ~ Age + Gender + DaysPhysHlthBad + TotChol + BMI, data = NHANES)
+summary(lm_model)
+
+# Perform GLM (assuming a Gaussian distribution which is equivalent to lm)
+glm_model <- glm(BPDiaAve ~ Age + Gender + DaysPhysHlthBad + TotChol + BMI, data = NHANES, family = gaussian())
+summary(glm_model)
+
+# Perform logistic regression with Diabetes as the response variable
+logistic_model <- glm(Diabetes ~ Age + Gender + DaysPhysHlthBad + TotChol + BMI, data = NHANES, family = binomial())
+summary(logistic_model)
+
+```
+
+# If time permits {-}
+
+# Working with dates and times {-}
+
+## Create and format dates {-}
+
+To create a Date object from a simple character string in R, you can use the as.Date() function. The character string has to obey a format that can be defined using a set of symbols (the examples correspond to 13 January, 1982):
+
+`%Y`: 4-digit year (1982)
+`%y`: 2-digit year (82)
+`%m`: 2-digit month (01)
+`%d`: 2-digit day of the month (13)
+`%A`: weekday (Wednesday)
+`%a`: abbreviated weekday (Wed)
+`%B`: month (January)
+`%b`: abbreviated month (Jan)
+
+For more information and a full list use `?strptime`
+
+## as.Date()
+
+```{r}
+as.Date('2019-06-05',format = '%Y-%m-%d')
+```
+
+Dates are often stored as integers.
+
+Convert integers to dates by speciying the origin (Day 0).
+
+For example: SAS stores dates at the number of days elapsed since 1 Jan 1960.
+
+```{r}
+as.Date(21705, origin = '1960-01-01')
+```
+## Exercise 1 {-}
+
+Work with the policy_data data set.
+1. Convert the start date (debut_pol) and end date (fin_pol) into R Date objects.
+
+```{r}
+# YOUR SOLUTION
+```
+
+## format() {-}
+
+```{r}
+today <- as.Date('2019-06-05',
+                format = '%Y-%m-%d')
+format(today, '%A %d %B %Y')
+```
+
+Calculate the duration of a contract.
+
+```{r}
+policy_duration =
+  policy_data$end - policy_data$start
+
+```
+
+You can add and subtract integers from dates.
+```{r}
+tomorrow = today + 1
+print(tomorrow)
+```
+
+# Lubridate {-}
+
+## Access date components
+```{r}
+# install.packages("lubridate")
+library(lubridate)
+```
+
+```{r}
+year(today)
+```
+Other components are: month(), day(), quarter(), ...
+
+# Advanced math
+```{r}
+today + months(3)
+```
+Other periods are: years() and days().
+
+
+```{r}
+floor_date(today, unit = "month")
+```
+floor_date rounds down to the nearest unit. 
+
+In the example convert daily into monthly data.
+
+## seq() {-}
+
+```{r}
+seq(from = as.Date('2019-01-01'),
+    to = as.Date('2019-12-31'),
+    by = '1 month')
+```
+
+## Exercise 2 (Optional) {-}
+
+Visualize the exposure contribution by start month of the contract in the policy_data data set.
+1. Add a covariate start_month to the data set. 2. Group the data by start_month.
+3. Calculate the exposure within each group.
+4. Plot the data.
+
+```{r}
+# YOUR SOLUTION
+```
+
+
+# Additional Content on Functions {-}
+# Functions and Control Structures {-}
+
+## Writing and using functions {-}
+
+Example: A simple function to calculate the square of a number
+
+$$
+f(x) = x^2
+$$
+
+```{r}
+
+square_function <- function(x) {
+  return(x^2)
+}
+
+# Using the function
+result <- square_function(4)
+print(result)
+```
+
+### Exercise 1{-}
+
+**Task:** Write and Use a Function
+**Objective:** Create a function that calculates the cube of a number and use this function to calculate the cube of 3.
+
+**Hint:** Use the structure of the square_function as a template.
+
+
+```{r}
+#YOUR SOLUTION
+```
+
+## If statements and loops (for and while) {-}
+
+```{r}
+# Example: Using if statement
+number <- 5
+if (number > 0) {
+  print("Positive number")
+} else {
+  print("Non-positive number")
+}
+
+
+```
+
+### Exercise 3 {-}
+
+**Task:** Using if Statements
+**Objective:** Create an R script that checks if a number is negative, zero, or positive and prints an appropriate message. Test your script with the number -4.
+
+**Hint:** Use an if statement followed by else if and else.
+
+```{r}
+#YOUR SOLUTION
+```
+
+## Example: {-}
+While loop to find the first square number greater than 100
+
+```{r}
+number <- 1
+while (number^2 <= 100) {
+  number <- number + 1
+}
+print(paste("First square number greater than 100 is:", number^2))
+```
+
+### Exercise 5 {-}
+
+**Task:** While Loop
+**Objective:** Write a script using a while loop that finds the smallest number whose cube is greater than 100. Print the number and its cube.
+
+**Hint:** Increment a number starting from 1, and check if its cube is greater than 100 in the while loop condition.
+
+
+```{r}
+# YOUR SOLUTION
+```
+
+
